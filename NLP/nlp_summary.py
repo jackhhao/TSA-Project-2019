@@ -84,4 +84,4 @@ def generate_summary(file_name, top_n=5):
     print("Summarize Text: \n", ". ".join(summarize_text))
 
 # let's begin
-generate_summary( "msft.txt", 5)
+#generate_summary( "msft.txt", 5)

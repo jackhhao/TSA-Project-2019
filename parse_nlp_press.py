@@ -23,6 +23,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 sia = SentimentIntensityAnalyzer()
 
 headers = {'USER-AGENT': 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405'}
+urlType = ""
 
 def modify(url):
     if url[0] == "/":
@@ -32,11 +33,19 @@ def modify(url):
         soup = BeautifulSoup(page, features="html.parser")
         read_more = soup.find("div", {"class": "read-more Mt(20px) Ta(start) Ta(c)--sm"})
         url = read_more.a['href']
+        urlType = "non"
     return url
-
+"""
+def getPage(url):
+    if (urlType == "non"):
+        link_page = requests.get(url, headers=headers)
+    else:
+        link_page = urlopen(url).read()
+    return link_page
+"""
 def getSentiment(passage):
     sentiment = sia.polarity_scores(passage)['compound']
-    return ("Sentiment Score:" + str(sia.polarity_scores(passage)['compound']))
+    return ("                                        Sentiment Score:" + str(sia.polarity_scores(passage)['compound']))
 
 i = input("symbol: ")
 
@@ -53,15 +62,24 @@ for post in posts:
     #print(date, url)
 
     url = modify(url)
+
     print(url)
     if ("/video/" not in url):
-        r = requests.get(url, headers=headers)
-        link_soup = BeautifulSoup(r.content)
+        if urlType == "non":
+            r = requests.get(url, headers=headers)
+            link_page = r.content
+        else:
+            link_page = urlopen(url).read()
+        link_soup = BeautifulSoup(link_page)
         sentences = link_soup.findAll("p")
+
         passage = ""
 
         for sentence in sentences:
-            print(sentence.text)
-            passage += sentence.text
+            if "Fz(14px) Lh(19px) Fz(13px)--sm1024 Lh(17px)--sm1024 LineClamp(2,38px) LineClamp(2,34px)--sm1024 M(0)" in sentence["class"]:
+                continue
+            else:
+                print(sentence.text)
+                passage += sentence.text
         print(getSentiment(passage))
             #date_sentiments.setdefault(date, []).append(sentiment)
