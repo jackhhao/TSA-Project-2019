@@ -68,6 +68,7 @@ for post in posts:
         if urlType == "non":
             r = requests.get(url, headers=headers)
             link_page = r.content
+            print("urlType is non")
         else:
             link_page = urlopen(url).read()
         link_soup = BeautifulSoup(link_page)
