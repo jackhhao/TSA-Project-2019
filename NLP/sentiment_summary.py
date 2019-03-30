@@ -9,4 +9,5 @@ with open("pageContent.txt", "w") as f:
 
 nlp_summary.generate_summary("pageContent.txt", len(sentiment_analysis.main(i))/3.0)
 #Summary should be stored in Collection to create Database-like Structure
+stockDictionary = {}
 
