@@ -1,15 +1,17 @@
 from yahoo_fin.stock_info import *
 import numpy as np
 from datetime import date, timedelta
-day = (date.today() - timedelta(10)).strftime("%d/%m/%Y")
-mean = get_data(ticker="AAPL", start_date = day)["close"].mean()
-stdev = np.std(get_data(ticker="AAPL", start_date = '03/05/2019')["close"])/mean
+t = "AAPL"
+td = 10
+day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
+mean = get_data(ticker=t, start_date = day)["close"].mean()
+stdev = np.std(get_data(ticker=t, start_date = '03/05/2019')["close"])/mean
 high = (1+stdev)*mean
 print("High: ", high)
 low = (1-stdev)*mean
 print("Low: ", low)
 
-vol = get_quote_table(stock ticker)["Avg. Volume"]
+vol = get_quote_table(t)["Avg. Volume"]
 volRisk = 0.5
 if vol>17500000:
     if vol > 25000000:
