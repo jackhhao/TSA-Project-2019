@@ -5,22 +5,20 @@ day = (date.today() - timedelta(10)).strftime("%d/%m/%Y")
 mean = get_data(ticker="AAPL", start_date = day)["close"].mean()
 stdev = np.std(get_data(ticker="AAPL", start_date = '03/05/2019')["close"])/mean
 high = (1+stdev)*mean
-print(high)
+print("High: ", high)
 low = (1-stdev)*mean
-print(low)
-x = get_quote_table(stock ticker)["Avg. Volume"]
+print("Low: ", low)
 
-if x>17500000:
-    if x > 25000000:
-        z = 1
+vol = get_quote_table(stock ticker)["Avg. Volume"]
+volRisk = 0.5
+if vol>17500000:
+    if vol > 25000000:
+        volRisk = 1
     else:
-        z = 0.75
-elif x<5000000:
-    if x<1000000:
-        z = 0.1
+        volRisk = 0.75
+elif vol<5000000:
+    if vol<1000000:
+        volRisk = 0.1
     else:
-        z = 0.25
-else:
-    z = 0.5
-print("A score will print out with 1 being the safest and 0.1 being the riskiest")
-print(z)
+        volRisk = 0.25
+print("A score will print out with 1 being the safest and 0.1 being the riskiest: ", volRisk)
