@@ -6,8 +6,6 @@ import time
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-urlType = ""
-
 def modify(url):
     if url[0] == "/":
         url = "https://finance.yahoo.com" + url
@@ -16,7 +14,6 @@ def modify(url):
         soup = BeautifulSoup(page, features="html.parser")
         read_more = soup.find("div", {"class": "read-more Mt(20px) Ta(start) Ta(c)--sm"})
         url = read_more.a['href']
-        urlType = "non"
     return url
 
 def urls(ticker):
