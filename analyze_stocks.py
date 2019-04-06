@@ -1,5 +1,5 @@
 import paralleldots
-import getURLs
+import getFY
 import numpy as np
 import argparse
 
@@ -50,7 +50,7 @@ def getHL(t, td, opt):
         return low
 
 def sentimentArticles(ticker):
-    FYPapers = getURLs.urls(ticker)
+    FYPapers = getFY.urls(ticker)
     count = 0
     score = 0
     magnitude = 0

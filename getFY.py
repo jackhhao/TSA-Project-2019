@@ -28,10 +28,20 @@ def urls(ticker):
     x = 0
     for post in posts:
         x+=1
-        time.sleep(1)
         url = post.a['href']
         url = modify(url)
         urlList.append(url)
         if(x==10):
             break
     return urlList
+
+def convos(ticker):
+    page = urlopen('https://finance.yahoo.com/quote/'+ticker+'/community?p='+ticker).read()
+    soup = BeautifulSoup(page, features="html.parser")
+    convos = soup.find_all("div", class_="C($c-fuji-grey-l) Mb(2px) Fz(14px) Lh(20px) Pend(8px)")
+    print(convos)
+    for convo in convos:
+        print(convo.text)
+
+urls("AAPL")
+convos("AAPL")
