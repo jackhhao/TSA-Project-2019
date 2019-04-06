@@ -38,7 +38,7 @@ def urls(ticker):
 def convos(ticker):
     page = urlopen('https://finance.yahoo.com/quote/'+ticker+'/community?p='+ticker).read()
     soup = BeautifulSoup(page, features="html.parser")
-    convos = soup.find_all("div", class_="C($c-fuji-grey-l) Mb(2px) Fz(14px) Lh(20px) Pend(8px)")
+    convos = soup.find_all("div", {"class": "C($c-fuji-grey-l) Mb(2px) Fz(14px) Lh(20px) Pend(8px)"})
     print(convos)
     for convo in convos:
         print(convo.text)
