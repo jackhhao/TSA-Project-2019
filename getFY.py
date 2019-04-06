@@ -1,14 +1,12 @@
 import requests
 import lxml.html
 import sys
-import time
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-headers = {'USER-AGENT': 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405'}
-
 urlType = ""
+headers = {'USER-AGENT': 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405'}
 
 def modify(url):
     if url[0] == "/":
@@ -38,14 +36,7 @@ def urls(ticker):
     return urlList
 
 def convos(ticker):
-    r = requests.get("https://finance.yahoo.com/quote/AAPL/community?p=AAPL", headers=headers)
-    page = r.content
-
-    soup = BeautifulSoup(page, features="html.parser")
+    r = requests.get("https://finance.yahoo.com/quote/"+ticker+"/community?p="+ticker, headers = headers)
+    soup = BeautifulSoup(r.content, features="html.parser")
     convos = soup.findAll("div", {"class": "C($c-fuji-grey-l) Mb(2px) Fz(14px) Lh(20px) Pend(8px)"})
-    #print(convos)
-    for convo in convos:
-        print(convo.text + "\n")
-
-urls("AAPL")
-convos("AAPL")
+    return  [convo.text for convo in convos]
