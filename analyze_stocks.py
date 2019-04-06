@@ -13,7 +13,7 @@ from os import environ
 
 paralleldots.set_api_key("VkuigAku4meDwQPFy0uHHxRZilBTSTQuu9PEmLMAOas")
 lang_code = "en"
-environ["GOOGLE_APPLICATION_CREDENTIALS"] = "F:\TSA\TSA-2019-734637019630.json"
+environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./TSA-2019-734637019630.json"
 client = language.LanguageServiceClient()
 
 def getVolume(t):
@@ -35,7 +35,7 @@ def getVolume(t):
     except:
         return 0
         '''
-        return get_quote_table(t)["Avg. Volume"]
+    return get_quote_table(t)["Avg. Volume"]
 
 
 def getHL(t, td, opt):
