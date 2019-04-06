@@ -6,4 +6,4 @@ win10toast==0.9
 requests==2.21.0
 beautifulsoup4==4.7.1
 protobuf==3.7.1
-newspaper==0.1.0.7
+newspaper3k
