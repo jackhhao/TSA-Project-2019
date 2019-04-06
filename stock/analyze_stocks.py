@@ -1,6 +1,7 @@
 from yahoo_fin.stock_info import *
 import numpy as np
 from datetime import date, timedelta
+import sentiment_analysis
 t = "AAPL"
 td = 10
 day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
@@ -24,3 +25,13 @@ elif vol<5000000:
     else:
         volRisk = 0.25
 print("A score will print out with 1 being the safest and 0.1 being the riskiest: ", volRisk)
+
+print("A general sentiment indicator will be printed out")
+Sentiment_Score = getSentiment(main(url))
+if Sentiment_Score <0:
+    print("General market sentiment strongly indicates against buying this stock")
+elif Sentiment_Score >0:
+    print("General market sentiment strongly is in favor of purchasing this stock")
+
+
+
