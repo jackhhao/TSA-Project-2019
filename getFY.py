@@ -6,6 +6,8 @@ import time
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
+headers = {'USER-AGENT': 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405'}
+
 urlType = ""
 
 def modify(url):
@@ -36,12 +38,14 @@ def urls(ticker):
     return urlList
 
 def convos(ticker):
-    page = urlopen('https://finance.yahoo.com/quote/'+ticker+'/community?p='+ticker).read()
+    r = requests.get("https://finance.yahoo.com/quote/AAPL/community?p=AAPL", headers=headers)
+    page = r.content
+
     soup = BeautifulSoup(page, features="html.parser")
-    convos = soup.find_all("div", {"class": "C($c-fuji-grey-l) Mb(2px) Fz(14px) Lh(20px) Pend(8px)"})
-    print(convos)
+    convos = soup.findAll("div", {"class": "C($c-fuji-grey-l) Mb(2px) Fz(14px) Lh(20px) Pend(8px)"})
+    #print(convos)
     for convo in convos:
-        print(convo.text)
+        print(convo.text + "\n")
 
 urls("AAPL")
 convos("AAPL")
