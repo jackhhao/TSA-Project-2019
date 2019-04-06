@@ -27,6 +27,8 @@ elif vol<5000000:
 print("A score will print out with 1 being the safest and 0.1 being the riskiest: ", volRisk)
 
 print("A general sentiment indicator will be printed out")
+print("Positive values indicate that there is positive market sentiment regarding the stock's performance")
+print("Negative values indicate that there is negative market sentiment regarding the stock's performance")
 Sentiment_Score = getSentiment(main(url))
 if Sentiment_Score <0:
     print("General market sentiment strongly indicates against buying this stock")
