@@ -1,6 +1,6 @@
 import os
 import multiprocessing
-import py.analyze_stocks
+import stock.analyze_stocks
 import webbrowser
 import pip
 

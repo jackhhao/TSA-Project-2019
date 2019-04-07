@@ -1,4 +1,4 @@
-import py.getFY
+import stock.getFY
 import argparse
 import sys
 import csv

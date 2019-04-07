@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" href="data:,">
+
   <title>Binary Translator</title>
   <style>
   p {
@@ -13,6 +15,7 @@
   }
   </style>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <!--<script src = "./js/main.js"></script>-->
 </head>
 <body>
   <h1> BINARY TRANSLATOR </h1>
@@ -23,7 +26,9 @@
 $( "input" )
   .keyup(function() {
     var value = $( this ).val();
-$ .get  ("/convert", {v: value}, function (result) => $ ( "p" ).text( result );)
+$ .get  ("/convert", {v: value}, function(result) {
+$ ( "p" ).text( result );
+})
 })
   .keyup();
 </script>

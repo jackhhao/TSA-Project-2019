@@ -1,5 +1,5 @@
 import os
-import py.run
+import stock.run
 
 def textToBinary(x):
     out = []
