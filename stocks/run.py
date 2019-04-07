@@ -40,7 +40,8 @@ f = open("../stocks/companyList.csv")
 r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
 
-def main(amt):
+if __name__ == "__main__":
+    amt = int(input("how many? "))
     ls = []
     x = lambda a : a if a not in ls else x(choice(tl))
     ls = [x(choice(tl)) for _ in range(0, amt)]
@@ -55,7 +56,3 @@ def main(amt):
             webbrowser.open('https://finance.yahoo.com/quote/{ticker}?p={ticker}'.format(ticker = ticker))
         elif(ticker == "quit"):
             break
-
-if __name__ == "__main__":
-    print(sys.argv)
-    main(int(input()))
