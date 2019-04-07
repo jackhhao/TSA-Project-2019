@@ -18,7 +18,7 @@
 
     <script>
       const {PythonShell} = require('python-shell')
-      let pyshell = new PythonShell('run.py');
+      let pyshell = new PythonShell('../stocks/run.py');
 
       pyshell.send(5);
 
@@ -33,7 +33,7 @@
     <script>
       $.ajax({
         type: "POST",
-        url: "./run.py",
+        url: "../stocks/run.py",
         data: { param: text}
       }).done(function( o ) {
          console.log("bob")
