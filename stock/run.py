@@ -1,6 +1,6 @@
 import os
 import multiprocessing
-import stock.analyze_stocks
+import stock.analyze_stocks as analyze_stocks
 import webbrowser
 import pip
 
@@ -20,7 +20,7 @@ def AD(rc):
     vt = analyze_stocks.getVolatility(rc, 5)
     h = analyze_stocks.getHL(rc, 5, "High")
     l = analyze_stocks.getHL(rc, 5, "Low")
-    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}".format(rc, vl, vt, senA, senC))
+    return ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}".format(rc, vl, vt, senA, senC))
     multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
 
 def nu(rc, h, l):
@@ -36,6 +36,12 @@ def nu(rc, h, l):
                 break
         else:
             break
+
+def final(rc):
+    x = analyze_stocks.getHL(rc, 10, "High")
+    y = analyze_stocks.getHL(rc, 10, "Low")
+    return "We reccomend that you buy at {y} and reccomend you sell at {x}".format(y = y, x = x)
+
 f= open("assets/companyList.csv")
 r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
