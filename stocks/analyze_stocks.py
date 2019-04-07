@@ -19,7 +19,7 @@ from yahoo_fin.stock_info import *
 from os import environ
 
 lang_code = "en"
-environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./TSA-2019-734637019630.json"
+environ["GOOGLE_APPLICATION_CREDENTIALS"] = "../stocks/TSA-2019-734637019630.json"
 client = language.LanguageServiceClient()
 
 def getVolume(t):

@@ -2,7 +2,7 @@
 const {PythonShell} = require('python-shell')
 //import {PythonShell} from 'python-shell';
 
-let pyshell = new PythonShell('run.py');
+let pyshell = new PythonShell('../stocks/run.py');
 
 /*
 var options = {
@@ -17,7 +17,7 @@ var options = {
 
 let options = {
   mode: 'text',
-  //pythonPath: 'C:/Users/Jack/AppData/Local/Programs/Python/Python37/',
+  //pythonPath: 'C:/Python36',
   encoding: 'utf8',
   pythonOptions: ['-u'], // get print results in real-time
   scriptPath: './',

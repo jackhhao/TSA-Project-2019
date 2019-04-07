@@ -3,7 +3,7 @@ const {app, BrowserWindow} = require('electron')
 const {PythonShell} = require('python-shell')
 const electron = require('electron')
 //import {PythonShell} from 'python-shell';
-let pyshell = new PythonShell('run.py');
+let pyshell = new PythonShell('../stocks/run.py');
 
 
 let options = {
@@ -12,7 +12,7 @@ let options = {
   encoding: 'utf8',
   pythonOptions: ['-u'], // get print results in real-time
   scriptPath: './',
-  args: [10]
+  args : [10, 30, 40]
 };
 
 /*
@@ -24,23 +24,18 @@ test.on('message', function(message) {
 
 // below: way to use pythonshell to get notifs successfully, doesn't return anything
 
-/*
+
 PythonShell.run('run.py', options, function (err, results) {
   // if (err) throw err;
   // results is an array consisting of messages collected during execution
   console.log('results: %j', results);
 });
-*/
 
-/*
+
+
 pyshell.send(5);
 
-pyshell.on('message', function (message) {
- // received a message sent from the Python script (a simple "print" statement)
- console.log(message);
-pyshell.send("AAPL");
-});
-*/
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

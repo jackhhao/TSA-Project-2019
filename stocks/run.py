@@ -35,13 +35,12 @@ def nu(rc, h, l):
                 break
         else:
             break
-f= open("companyList.csv")
+
+f = open("../stocks/companyList.csv")
 r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
 
-if __name__ == "__main__":
-    amt = int(input("how many?"))
-    #amt = int(input("How many stocks would you like to go through? "))
+def main(amt):
     ls = []
     x = lambda a : a if a not in ls else x(choice(tl))
     ls = [x(choice(tl)) for _ in range(0, amt)]
@@ -56,3 +55,7 @@ if __name__ == "__main__":
             webbrowser.open('https://finance.yahoo.com/quote/{ticker}?p={ticker}'.format(ticker = ticker))
         elif(ticker == "quit"):
             break
+
+if __name__ == "__main__":
+    print(sys.argv)
+    main(int(input()))
