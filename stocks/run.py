@@ -3,6 +3,7 @@ import multiprocessing
 import analyze_stocks
 import subprocess
 import webbrowser
+import sys
 
 from csv import reader
 from random import choice
@@ -38,8 +39,9 @@ f= open("companyList.csv")
 r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
 
-if __name__ == '__main__':
-    amt = int(input("How many stocks would you like to go through? "))
+if __name__ == "__main__":
+    amt = int(input("how many?"))
+    #amt = int(input("How many stocks would you like to go through? "))
     ls = []
     x = lambda a : a if a not in ls else x(choice(tl))
     ls = [x(choice(tl)) for _ in range(0, amt)]
