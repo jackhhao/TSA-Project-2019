@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="assets/style.css">
+  <title>Binary Translator</title>
+  <style>
+  p {
+    color: white;
+    margin: 8px;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: 'Helvetica', sans-serif;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+  <h1> BINARY TRANSLATOR </h1>
+
+<input type="text" value="">
+<p id='paragraph'></p>
+<script>
+$( "input" )
+  .keyup(function() {
+    var value = $( this ).val();
+$ .get  ("/convert", {v: value}, function (result) => $ ( "p" ).text( result );)
+})
+  .keyup();
+</script>
+
+</body>
+</html>
