@@ -5,7 +5,7 @@ const electron = require('electron')
 //import {PythonShell} from 'python-shell';
 let pyshell = new PythonShell('../stocks/run.py');
 
-
+/*
 let options = {
   mode: 'text',
   // pythonPath: 'C:/Users/Jack/AppData/Local/Programs/Python/Python37/',
@@ -14,6 +14,7 @@ let options = {
   scriptPath: './',
   args : [10, 30, 40]
 };
+*/
 
 /*
 var test = new PythonShell('run.py', options);
@@ -24,16 +25,16 @@ test.on('message', function(message) {
 
 // below: way to use pythonshell to get notifs successfully, doesn't return anything
 
-
+/*
 PythonShell.run('run.py', options, function (err, results) {
   // if (err) throw err;
   // results is an array consisting of messages collected during execution
   console.log('results: %j', results);
 });
+*/
 
 
-
-pyshell.send(5);
+// pyshell.send(5);
 
 
 

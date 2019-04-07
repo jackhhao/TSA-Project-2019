@@ -28,10 +28,26 @@
       });
       pyshell.send("AAPL");
     </script>
-    <form action="./main.js" method="GET">
-      <button>Call server</button>
-    </form>
 
+
+<!--
+  <script type = "text/javascript" src = "../electron-app/test.js"></script>
+  <button onClick = "testFunc()">Call the server</button>
+-->
+
+  <!-- <button id = "btn2">Call Server</button>
+  <script>
+    var button2 = document.querySelector('#btn2')
+
+    button2.addEventListener('click', function testFunc(event)
+    {
+      pyshell.send(5);
+      pyshell.on('message', function(message) {
+        document.write(message)
+      });
+    });
+  </script>
+-->
 <!--
     <script>
       $.ajax({

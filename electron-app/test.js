@@ -33,13 +33,14 @@ test.on('message', function(message) {
 
 
 // sends a message to the Python script via stdin
-pyshell.send(5);
-
-pyshell.on('message', function (message) {
- // received a message sent from the Python script (a simple "print" statement)
- console.log(message);
-});
-
+function testFunc()
+{
+  pyshell.send(5);
+  pyshell.on('message', function (message) {
+   // received a message sent from the Python script (a simple "print" statement)
+   document.write(message);
+  });
+};
 /*
 PythonShell.run('run.py', options, function (err, results) {
   // if (err) throw err;
