@@ -38,15 +38,15 @@ def nu(rc, h, l):
             break
 
 def final(rc):
-    buyAt = analyze_stocks.getHL(rc, 10, "High")
-    sellAt = analyze_stocks.getHL(rc, 10, "Low")
-    
+    sellAt = analyze_stocks.getHL(rc, 10, "High")
+    buyAt = analyze_stocks.getHL(rc, 10, "Low")
+
     try:
         buyAt = '${0:.2f}'.format(buyAt)
         sellAt = '${0:.2f}'.format(sellAt)
     except TypeError:
         pass
-    
+
     return "We recommend that you buy at {x} and sell at {y}.".format(x = buyAt, y = sellAt)
 
 f= open("assets/companyList.csv")
