@@ -107,24 +107,15 @@ def sentimentConvos(ticker):
 
 def getVolatility(ticker, td):
     day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
-    try:
-        L = [i for i in get_data(ticker=ticker, start_date = day)["close"]]
-    except:
-        return None
-    c=0
-    L2 = [abs(((L[c] - i)/L[c]) * 100) for i in get_data(ticker=ticker, start_date = day)["open"]]
-    c+=1
+    L = []
+    L2 = []
+    count = 0
+    for i in get_data(ticker=str, start_date = day)["close"]:
+        L.append(i)
+    for i in get_data(ticker=str, start_date = day)["open"]:
+        L2.append(abs(((L[count] - i)/L[count]) * 100))
+        count+=1
     avgVolatility = sum(L2)/len(L2)
-    '''
-    v = 0.1
-    if avgVolatility<1:
-        v = 1
-    elif avgVolatility < 3:
-        v = 0.75;
-    elif avgVolatility<5:
-        v = 0.5;
-    return(v)
-    '''
     return avgVolatility
 
 def getBeta(t):
