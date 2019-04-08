@@ -21,7 +21,6 @@ def modify(url):
 
 def urls(ticker):
     urlList = []
-
     page = urlopen('https://finance.yahoo.com/quote/' + ticker + "/press-releases?p=" + ticker).read()
     soup = BeautifulSoup(page, features="html.parser")
     posts = soup.findAll("h3", {"class": "Mb(5px)"})

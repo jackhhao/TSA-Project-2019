@@ -20,7 +20,7 @@ def AD(rc):
     vt = analyze_stocks.getVolatility(rc, 5)
     h = analyze_stocks.getHL(rc, 5, "High")
     l = analyze_stocks.getHL(rc, 5, "Low")
-    return ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}".format(rc, vl, vt, senA, senC))
+    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}".format(rc, vl, vt, senA, senC))
     multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
 
 def nu(rc, h, l):
@@ -46,8 +46,7 @@ f= open("assets/companyList.csv")
 r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
 
-if __name__ == '__main__':
-    amt = int(input("How many stocks would you like to go through? "))
+def main(amt):
     ls = []
     x = lambda a : a if a not in ls else x(choice(tl))
     ls = [x(choice(tl)) for _ in range(0, amt)]

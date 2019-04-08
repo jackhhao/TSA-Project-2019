@@ -1,0 +1,13 @@
+win10toast==0.9
+pandas==0.24.2
+pip==19.0.3
+Flask==1.0.2
+newspaper3k==0.2.8
+lxml==4.3.3
+requests==2.21.0
+yahoo_fin==0.8.2
+numpy==1.16.2
+beautifulsoup4==4.7.1
+protobuf==3.7.1
+newspaper==0.1.0.7
+google-cloud-language
