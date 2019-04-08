@@ -3,14 +3,15 @@ import multiprocessing
 import stock.analyze_stocks as analyze_stocks
 import webbrowser
 import pip
+import subprocess as s
 
 from time import sleep
 from csv import reader
 from random import choice
 from time import sleep
-from win10toast import ToastNotifier
+#from win10toast import ToastNotifier
 
-toaster = ToastNotifier()
+#toaster = ToastNotifier()
 count = 0
 
 def AD(rc):
@@ -27,11 +28,13 @@ def nu(rc, h, l):
     while(True):
         if(h is not None or l is not None):
             if(analyze_stocks.getCurrentPrice(rc) == l):
-                toaster.show_toast("Stock Bot", "Buy stock {stock} right now!".format(stock = rc), duration = 10)
+                s.check_call(["notify-send", "-i", "/home/usr/Downloads/money.jpeg", "Buy stock {} stock right now!".format(stock = rc)])
+                #toaster.show_toast("Stock Bot", "Buy stock {stock} right now!".format(stock = rc), duration = 10)
                 print("Enter a stock to lookup: ")
                 break
             elif(analyze_stocks.getCurrentPrice(rc) == h):
-                toaster.show_toast("Stock Bot", "Sell stock {stock} right now! Go to console.".format(stock = rc), duration = 10)
+                s.check_call(["notify-send", "-i", "/home/usr/Downloads/money.jpeg", "Sell stock {} stock right now!".format(stock = rc)])
+                #toaster.show_toast("Stock Bot", "Sell stock {stock} right now! Go to console.".format(stock = rc), duration = 10)
                 print("Enter a stock to lookup: ")
                 break
         else:

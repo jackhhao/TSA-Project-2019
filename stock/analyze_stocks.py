@@ -110,9 +110,9 @@ def getVolatility(ticker, td):
     L = []
     L2 = []
     count = 0
-    for i in get_data(ticker=str, start_date = day)["close"]:
+    for i in get_data(ticker=ticker, start_date = day)["close"]:
         L.append(i)
-    for i in get_data(ticker=str, start_date = day)["open"]:
+    for i in get_data(ticker=ticker, start_date = day)["open"]:
         L2.append(abs(((L[count] - i)/L[count]) * 100))
         count+=1
     avgVolatility = sum(L2)/len(L2)
