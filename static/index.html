@@ -14,7 +14,7 @@
 Enter Stock: <input type="text" id="field1">
 <button id = "btn1" onclick="testFunc()">Submit</button>
 <p id='paragraph'></p>
-
+  
 <script>
   function testFunc() {
     var value = document.getElementById("field1").value;
@@ -22,6 +22,16 @@ Enter Stock: <input type="text" id="field1">
     $ ( "p" ).text( result );
     })
   }
+</script>
+
+<script>
+  var input = document.getElementById("field1");
+  input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+     event.preventDefault();
+     document.getElementById("btn1").click();
+    }
+  });
 </script>
 
 </body>
