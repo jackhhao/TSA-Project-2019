@@ -11,17 +11,17 @@
 </head>
 <body>
   <h1> STOCK ASSISTOR </h1>
-<input type="text" value="">
+Enter Stock: <input type="text" id="field1">
+<button id = "btn1" onclick="testFunc()">Submit</button>
 <p id='paragraph'></p>
+
 <script>
-$( "input" )
-  .keyup(function() {
-    var value = $( this ).val();
-$ .get  ("/convert", {v: value}, function(result) {
-$ ( "p" ).text( result );
-})
-})
-  .keyup();
+  function testFunc() {
+    var value = document.getElementById("field1").value;
+    $ .get  ("/convert", {v: value}, function(result) {
+    $ ( "p" ).text( result );
+    })
+  }
 </script>
 
 </body>
