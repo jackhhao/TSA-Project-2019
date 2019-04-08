@@ -21,14 +21,14 @@ def AD(rc):
     vt = analyze_stocks.getVolatility(rc, 5)
     h = analyze_stocks.getHL(rc, 5, "High")
     l = analyze_stocks.getHL(rc, 5, "Low")
-    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}".format(rc, vl, vt, senA, senC))
+    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low}".format(rc, vl, vt, senA, senC, high = h, low = l))
     multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
 
 def nu(rc, h, l):
     while(True):
         if(h is not None or l is not None):
             if(analyze_stocks.getCurrentPrice(rc) == l):
-                s.check_call(["notify-send", "-i", "/home/usr/Downloads/money.jpeg", "Buy stock {} stock right now!".format(stock = rc)])
+                s.call(["notify-send", "-i", "/home/usr/Downloads/money.jpeg", "Buy stock {} stock right now!".format(stock = rc)])
                 #toaster.show_toast("Stock Bot", "Buy stock {stock} right now!".format(stock = rc), duration = 10)
                 print("Enter a stock to lookup: ")
                 break
@@ -64,7 +64,7 @@ def main(amt):
     pl = [multiprocessing.Process(target=AD, args=(i,)) for i in ls]
     for i in pl:
         i.start()
-    sleep(100)
+    sleep(20)
     while(True):
         ticker = input()
         if(analyze_stocks.getCurrentPrice(ticker) is not None):

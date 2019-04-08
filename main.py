@@ -17,6 +17,6 @@ def translate():
 def send_assets(path):
     return send_from_directory('assets', path)
 
-if __name__=='__main__':
+if __name__ == '__main__':
     app.run(debug=True, port=5050)
     stock.run.main(5)
