@@ -169,3 +169,4 @@ def getFreq(ticker, td):
     print("Frequency: " + str(frequency))
     print("LowFreq: " + str(lowFreq))
     print("HighFreq: " + str(highFreq) + "\n")
+    return lowFreq, highFreq

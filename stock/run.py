@@ -47,6 +47,7 @@ r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
 
 def suggest(rc):
+    rating = 0
     e = 2.718281828459045
     vl = analyze_stocks.getVolume(rc)
     if (vl is None):
@@ -54,20 +55,16 @@ def suggest(rc):
     print("The stock (" + rc + ") is operating at a volume of " + str(vl) + " shares on the last open trading day.")
     vlRating = 100/(1 + 24.5*e**(-vl/1000000))
     print("The StockBot gives the stock a volume rating of " + str(vlRating) + ".")
-    try:
-        senA = analyze_stocks.sentimentArticles(rc)[0]
-    except:
-        rating -= 1000
-        senA = 0
-    try:
-        senC = analyze_stocks.sentimentConvos(rc)[0]
-    except:
-        rating -= 1000
-        senC = 0
-    #vt = analyze_stocks.getVolatility(rc, 10)
+    senA = analyze_stocks.sentimentArticles(rc)[0]
+    senC = analyze_stocks.sentimentConvos(rc)[0]
+    vt = analyze_stocks.getVolatility(rc, 10)
     ac = analyze_stocks.getActualVolatility(rc, 10)
-    sentiment = ((senA*100)+(senC*100))/2
-    rating = sentiment + vt*40 - abs(ac*20) + vl
+    try:
+        sentiment = ((senA*100)+(senC*100))/2
+    except:
+        sentiment = 0
+        rating -= 1000
+    rating = sentiment + vt*40 - abs(ac*20) + vlRating
     return rating
 
 def AD(rc):
@@ -77,7 +74,10 @@ def AD(rc):
     vt = analyze_stocks.getVolatility(rc, 5)
     h = analyze_stocks.getHL(rc, 5, "High")
     l = analyze_stocks.getHL(rc, 5, "Low")
-    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tRating: {rating}".format(rc, vl, vt, senA, senC, high = h, low = l, rating = suggest(rc)))
+    f = analyze_stocks.getFreq(rc, 5)
+    lf = f[0]
+    hf = f[1]
+    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tLowFreq: {lf} \n\tHighFreq: {hf}\n\tRating: {rating}".format(rc, vl, vt, senA, senC, high = h, low = l, lf = lf, hf = hf, rating = suggest(rc)))
     multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
 
 def main(amt):
