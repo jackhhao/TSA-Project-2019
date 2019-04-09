@@ -40,7 +40,7 @@ def getVolume(t):
         return 0
     '''
     try:
-        return get_quote_table(t)["Avg. Volume"]
+        return get_quote_table(t)["Volume"]
     except:
         return None
 
@@ -117,6 +117,19 @@ def getVolatility(ticker, td):
         count+=1
     avgVolatility = sum(L2)/len(L2)
     return avgVolatility
+
+def getActualVolatility(str, td):
+    day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
+    L = []
+    L2 = []
+    count = 0
+    for i in get_data(ticker=str, start_date = day)["close"]:
+        L.append(i)
+    for i in get_data(ticker=str, start_date = day)["open"]:
+        L2.append(((L[count] - i)/L[count]) * 100)
+        count+=1
+    return sum(L2)
+
 
 def getBeta(t):
     try:

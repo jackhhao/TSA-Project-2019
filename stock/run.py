@@ -56,6 +56,18 @@ f= open("assets/companyList.csv")
 r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
 
+def suggest(rc):
+        e = 2.718281828459045
+        vl = analyze_stocks.getVolume(rc)
+        senA = analyze_stocks.sentimentArticles(rc)[0]
+        senC = analyze_stocks.sentimentConvos(rc)[0]
+        vt = analyze_stocks.getVolatility(rc, 10)
+        vl = 100/(1 + 24.5*e**(-vl/1000000))
+        ac = analyze_stocks.getActualVolatility(rc, 10)
+        sentiment = ((senA*100)+(senC*100))/2
+        rating = sentiment + vt*20 - abs(ac*20) + vl
+        return rating
+
 def main(amt):
     ls = []
     x = lambda a : a if a not in ls else x(choice(tl))
