@@ -47,22 +47,27 @@ r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
 
 def suggest(rc):
-    rating = 0
     e = 2.718281828459045
     vl = analyze_stocks.getVolume(rc)
+    if (vl is None):
+        return 0
+    print("The stock (" + rc + ") is operating at a volume of " + str(vl) + " shares on the last open trading day.")
+    vlRating = 100/(1 + 24.5*e**(-vl/1000000))
+    print("The StockBot gives the stock a volume rating of " + str(vlRating) + ".")
     try:
         senA = analyze_stocks.sentimentArticles(rc)[0]
     except:
         rating -= 1000
+        senA = 0
     try:
         senC = analyze_stocks.sentimentConvos(rc)[0]
     except:
         rating -= 1000
-    vt = analyze_stocks.getVolatility(rc, 10)
-    vl = 100/(1 + 24.5*e**(-vl/1000000))
+        senC = 0
+    #vt = analyze_stocks.getVolatility(rc, 10)
     ac = analyze_stocks.getActualVolatility(rc, 10)
     sentiment = ((senA*100)+(senC*100))/2
-    rating = sentiment + vt*20 - abs(ac*20) + vl
+    rating = sentiment + vt*40 - abs(ac*20) + vl
     return rating
 
 def AD(rc):

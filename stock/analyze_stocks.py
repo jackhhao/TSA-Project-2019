@@ -39,11 +39,7 @@ def getVolume(t):
     except:
         return 0
     '''
-    try:
-        return get_quote_table(t)["Volume"]
-    except:
-        return None
-
+    return get_quote_table(t)["Volume"]
 
 def getHL(t, td, opt):
     day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
