@@ -170,6 +170,6 @@ def getFreq(ticker, td):
             if count == frequency - 1:
                 highFreq = price
         frequency = max(frequency, count)
-        print("Frequency: " + str(frequency))
-        print("LowFreq: " + str(lowFreq))
-        print("HighFreq: " + str(highFreq) + "\n")
+    print("Frequency: " + str(frequency))
+    print("LowFreq: " + str(lowFreq))
+    print("HighFreq: " + str(highFreq) + "\n")

@@ -18,4 +18,5 @@ def send_assets(path):
     return send_from_directory('assets', path)
 
 if __name__ == '__main__':
+    stock.run.main(20)
     app.run(debug=True, port=5050)

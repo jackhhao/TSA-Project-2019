@@ -14,16 +14,6 @@ from time import sleep
 #toaster = ToastNotifier()
 count = 0
 
-def AD(rc):
-    vl = analyze_stocks.getVolume(rc)
-    senA = analyze_stocks.sentimentArticles(rc)
-    senC = analyze_stocks.sentimentConvos(rc)
-    vt = analyze_stocks.getVolatility(rc, 5)
-    h = analyze_stocks.getHL(rc, 5, "High")
-    l = analyze_stocks.getHL(rc, 5, "Low")
-    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low}".format(rc, vl, vt, senA, senC, high = h, low = l))
-    multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
-
 def nu(rc, h, l):
     while(True):
         if(h is not None or l is not None):
@@ -57,19 +47,35 @@ r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
 
 def suggest(rc):
-        e = 2.718281828459045
-        vl = analyze_stocks.getVolume(rc)
+    rating = 0
+    e = 2.718281828459045
+    vl = analyze_stocks.getVolume(rc)
+    try:
         senA = analyze_stocks.sentimentArticles(rc)[0]
+    except:
+        rating -= 1000
+    try:
         senC = analyze_stocks.sentimentConvos(rc)[0]
-        vt = analyze_stocks.getVolatility(rc, 10)
-        vl = 100/(1 + 24.5*e**(-vl/1000000))
-        ac = analyze_stocks.getActualVolatility(rc, 10)
-        sentiment = ((senA*100)+(senC*100))/2
-        rating = sentiment + vt*20 - abs(ac*20) + vl
-        return rating
+    except:
+        rating -= 1000
+    vt = analyze_stocks.getVolatility(rc, 10)
+    vl = 100/(1 + 24.5*e**(-vl/1000000))
+    ac = analyze_stocks.getActualVolatility(rc, 10)
+    sentiment = ((senA*100)+(senC*100))/2
+    rating = sentiment + vt*20 - abs(ac*20) + vl
+    return rating
+
+def AD(rc):
+    vl = analyze_stocks.getVolume(rc)
+    senA = analyze_stocks.sentimentArticles(rc)
+    senC = analyze_stocks.sentimentConvos(rc)
+    vt = analyze_stocks.getVolatility(rc, 5)
+    h = analyze_stocks.getHL(rc, 5, "High")
+    l = analyze_stocks.getHL(rc, 5, "Low")
+    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tRating: {rating}".format(rc, vl, vt, senA, senC, high = h, low = l, rating = suggest(rc)))
+    multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
 
 def main(amt):
-    analyze_stocks.getFreq("AAPL", 20)
     ls = []
     x = lambda a : a if a not in ls else x(choice(tl))
     ls = [x(choice(tl)) for _ in range(0, amt)]
