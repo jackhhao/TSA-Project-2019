@@ -69,6 +69,7 @@ def suggest(rc):
         return rating
 
 def main(amt):
+    analyze_stocks.getFreq("AAPL", 20)
     ls = []
     x = lambda a : a if a not in ls else x(choice(tl))
     ls = [x(choice(tl)) for _ in range(0, amt)]
