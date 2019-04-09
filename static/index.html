@@ -38,8 +38,23 @@
 		<p id='paragraph'></p>
 
 		<script>
-			var testFunc = () => $.get("/convert", {v: document.getElementById("field1").value}, (result) => $("p").text(result))
+      function testFunc() {
+        var value = document.getElementById("field1").value;
+        $ .get  ("/convert", {v: value}, function(result) {
+        $ ( "#paragraph" ).text( result );
+        })
+      }
 		</script>
+
+    <script>
+      var input = document.getElementById("field1");
+      input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+         event.preventDefault();
+         document.getElementById("btn1").click();
+        }
+      });
+    </script>
 
 		<!-- One -->
 			<section id="one" class="wrapper">
