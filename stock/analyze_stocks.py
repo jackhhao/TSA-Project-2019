@@ -130,7 +130,6 @@ def getActualVolatility(str, td):
         count+=1
     return sum(L2)
 
-
 def getBeta(t):
     try:
         return get_quote_table(t)["Beta (3Y Monthly)"]

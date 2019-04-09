@@ -4,17 +4,9 @@ from flask import Flask, request, send_from_directory
 
 app = Flask(__name__)
 
-ticker = input("Ticker:")
-print(stock.analyze_stocks.getVolatility(ticker, 10))
-print(stock.analyze_stocks.getActualVolatility(ticker, 10))
-print(stock.analyze_stocks.getVolume(ticker))
-print(stock.analyze_stocks.sentimentArticles(ticker))
-print(stock.analyze_stocks.sentimentConvos(ticker))
-print("Rating: " + str(stock.run.suggest(ticker)))
-
 @app.route('/')
 def root():
-    return app.send_static_file('index2.html')
+    return app.send_static_file('index.html')
 
 @app.route('/convert/')
 def translate():

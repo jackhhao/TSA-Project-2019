@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" href="data:,">
+
+  <title>STOCK ASSISTOR</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <!--<script src = "./js/main.js"></script>-->
+</head>
+<body>
+  <h1> STOCK ASSISTOR </h1>
+Enter Stock: <input type="text" id="field1">
+<button id = "btn1" onclick="testFunc()">Submit</button>
+<p id='paragraph'></p>
+
+<script>
+  function testFunc() {
+    var value = document.getElementById("field1").value;
+    $ .get  ("/convert", {v: value}, (result) => $("p").text(result))
+  }
+</script>
+
+<script>
+  var input = document.getElementById("field1");
+  input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+     event.preventDefault();
+     document.getElementById("btn1").click();
+    }
+  });
+</script>
+
+</body>
+</html>

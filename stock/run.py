@@ -28,12 +28,12 @@ def nu(rc, h, l):
     while(True):
         if(h is not None or l is not None):
             if(analyze_stocks.getCurrentPrice(rc) == l):
-                s.call(["notify-send", "-i", "/home/usr/Downloads/money.jpeg", "Buy stock {} stock right now!".format(stock = rc)])
+                s.call(["notify-send", "-i", "/home/usr/Downloads/money.jpeg", "Buy stock {stock} right now!".format(stock = rc)])
                 #toaster.show_toast("Stock Bot", "Buy stock {stock} right now!".format(stock = rc), duration = 10)
                 print("Enter a stock to lookup: ")
                 break
             elif(analyze_stocks.getCurrentPrice(rc) == h):
-                s.check_call(["notify-send", "-i", "/home/usr/Downloads/money.jpeg", "Sell stock {} stock right now!".format(stock = rc)])
+                s.check_call(["notify-send", "-i", "/home/usr/Downloads/money.jpeg", "Sell stock {stock} right now!".format(stock = rc)])
                 #toaster.show_toast("Stock Bot", "Sell stock {stock} right now! Go to console.".format(stock = rc), duration = 10)
                 print("Enter a stock to lookup: ")
                 break
