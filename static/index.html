@@ -35,12 +35,13 @@
 			<h1> STOCK ASSISTOR </h1>
 		Enter Stock: <input type="text" id="field1">
 		<button id = "btn1" onclick="testFunc()">Submit</button>
-		<p id='paragraph'></p>
+		<p>
+		<priceOutput id='priceOutput'></priceOutput>
 
 		<script>
-			var testFunc = () => $.get("/convert", {v: document.getElementById("field1").value}, (result) => $("p").text(result))
+			var testFunc = () => $.get("/convert", {v: document.getElementById("field1").value}, (result) => $("priceOutput").text(result))
 		</script>
-
+</p>
 		<!-- One -->
 			<section id="one" class="wrapper">
 				<div class="inner">
