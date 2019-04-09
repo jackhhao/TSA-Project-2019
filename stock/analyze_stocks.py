@@ -141,3 +141,35 @@ def getCurrentPrice(t):
         return get_live_price(t)
     except:
         return None
+
+def searchHL(x, lowPrices, highPrices):
+    for i in lowPrices:
+        if i == x:
+            return 1
+    for i in highPrices:
+        if i == x:
+            return -1
+
+def getFreq(ticker, td):
+    day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
+    highPrices = [i for i in get_data(ticker = ticker, start_date=day)["high"]]
+    lowPrices = [i for i in get_data(ticker = ticker, start_date = day)["low"]]
+    allPrices = highPrices + lowPrices
+    highPrices.sort()
+    lowPrices.sort()
+    allPrices.sort()
+    count = 0
+    frequency = 0
+    lowFreq = 0
+    highFreq = 0
+    for price in allPrices:
+        count += searchHL(price, lowPrices, highPrices)
+        if count > frequency:
+            lowFreq  = price
+        if searchHL(price, lowPrices, highPrices) == -1:
+            if count == frequency - 1:
+                highFreq = price
+        frequency = max(frequency, count)
+        print("Frequency: " + str(frequency))
+        print("LowFreq: " + str(lowFreq))
+        print("HighFreq: " + str(highFreq) + "\n")
