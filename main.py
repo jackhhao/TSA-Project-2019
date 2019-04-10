@@ -5,10 +5,6 @@ from flask import Flask, request, send_from_directory
 app = Flask(__name__)
 
 @app.route('/')
-def root():
-    return app.send_static_file('index.html')
-
-@app.route('/')
 def hRoot():
     return app.send_static_file('index.html')
 
@@ -20,14 +16,15 @@ def pRoot():
 def sRoot():
     return app.send_static_file("stocks.html")
 
-@app.route('/stocks/')
-def sRoot():
-    return app.send_static_file("stocks.html")
-
 @app.route('/convert/')
 def translate():
     translated = request.args.get('v')
     return stock.run.final(translated)
+
+@app.route('/suggest/')
+def suggest():
+    suggested = request.args.get('v')
+    return stock.run.main(suggested)
 
 @app.route('/assets/<path:path>')
 def send_assets(path):
