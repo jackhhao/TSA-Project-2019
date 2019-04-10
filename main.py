@@ -21,9 +21,18 @@ def translate():
     translated = request.args.get('v')
     return stock.run.final(translated)
 
+@app.route('/random/')
+def random():
+    return stock.run.randomStock()
+
+@app.route('/price')
+def getPrice():
+    translated = request.args.get('v')
+    return stock.run.getPrice(rc)
 @app.route('/suggest/')
 def suggest():
-    return stock.run.suggest(stock.run.randomStock())
+    rc = request.args.get('v')
+    return stock.run.suggest(rc)
 
 @app.route('/assets/<path:path>')
 def send_assets(path):

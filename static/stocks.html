@@ -18,7 +18,7 @@
 				<div class="inner">
 					<a href="index.html" class="logo">Theory</a>
 					<nav id="nav">
-						<a href="/home">Home</a>
+						<a href="/">Home</a>
 						<a href="/stocks">Stocks</a>
 						<a href="/portfolio">Portfolio</a>
 					</nav>
@@ -35,6 +35,7 @@
 					</header>
 					<p>Go to the table and click on a box in order to see why we rated it well.</p>
 					<div class="flex flex-2">
+						<button onclick="generateRandom()"></button>
 						<table id = "stockTable">
 							<tr id = "headers">
 								<th id = "tickerHeader"><center>Stock Ticker</center></th>
@@ -42,58 +43,88 @@
 								<th id = "ratingHeader"><center>Our Rating</center></th>
 							</tr>
 							<tr class = "row1">
-								<td class = "t1"><center><a href = "finance.yahoo.com">AAPL</a></center></td>
-								<td class = "p1"><center>190</center></td>
-								<td class = "r1"><center>100</center></td>
+								<td id = "t1"><center><a href = "finance.yahoo.com">AAPL</a></center></td>
+								<td id = "p1"><center>190</center></td>
+								<td id = "r1"><center>100</center></td>
 							</tr>
 							<tr class = "row2">
-								<td class = "t2"><center>AAPL</center></td>
-								<td class = "p2"><center>190</center></td>
-								<td class = "r3"><center>100</center></td>
+								<td id = "t2"><center>AAPL</center></td>
+								<td id = "p2"><center>190</center></td>
+								<td id = "r3"><center>100</center></td>
 							</tr>
 							<tr class = "row3">
-								<td class = "t3"><center>AAPL</center></td>
-								<td class = "p3"><center>190</center></td>
-								<td class = "r3"><center>100</center></td>
+								<td id = "t3"><center>AAPL</center></td>
+								<td id = "p3"><center>190</center></td>
+								<td id = "r3"><center>100</center></td>
 							</tr>
 							<tr class = "row4">
-								<td class = "t4"><center>AAPL</center></td>
-								<td class = "p4"><center>190</center></td>
-								<td class = "r4"><center>100</center></td>
+								<td id = "t4"><center>AAPL</center></td>
+								<td id = "p4"><center>190</center></td>
+								<td id = "r4"><center>100</center></td>
 							</tr>
 							<tr class = "row5">
-								<td class = "t5"><center>AAPL</center></td>
-								<td class = "p5"><center>190</center></td>
-								<td class = "r5"><center>100</center></td>
+								<td id = "t5"><center>AAPL</center></td>
+								<td id = "p5"><center>190</center></td>
+								<td id = "r5"><center>100</center></td>
 							</tr>
 							<tr class = "row6">
-								<td class = "t6"><center>AAPL</center></td>
-								<td class = "p6"><center>190</center></td>
-								<td class = "r6"><center>100</center></td>
+								<td id = "t6"><center>AAPL</center></td>
+								<td id = "p6"><center>190</center></td>
+								<td id = "r6"><center>100</center></td>
 							</tr>
 							<tr class = "row7">
-								<td class = "t7"><center>AAPL</center></td>
-								<td class = "p7"><center>190</center></td>
-								<td class = "r7"><center>100</center></td>
+								<td id = "t7"><center>AAPL</center></td>
+								<td id = "p7"><center>190</center></td>
+								<td id = "r7"><center>100</center></td>
 							</tr>
 							<tr class = "row8">
-								<td class = "t8"><center>AAPL</center></td>
-								<td class = "p8"><center>190</center></td>
-								<td class = "r8"><center>100</center></td>
+								<td id = "t8"><center>AAPL</center></td>
+								<td id = "p8"><center>190</center></td>
+								<td id = "r8"><center>100</center></td>
 							</tr>
 							<tr class = "row9">
-								<td class = "t9"><center>AAPL</center></td>
-								<td class = "p9"><center>190</center></td>
-								<td class = "r9"><center>100</center></td>
+								<td id = "t9"><center>AAPL</center></td>
+								<td id = "p9"><center>190</center></td>
+								<td id = "r9"><center>100</center></td>
 							</tr>
 							<tr class = "row10">
-								<td class = "t10"><center>AAPL</center></td>
-								<td class = "p10"><center>190</center></td>
-								<td class = "r10"><center>100</center></td>
+								<td id = "t10"><center>AAPL</center></td>
+								<td id = "p10"><center>190</center></td>
+								<td id = "r10"><center>100</center></td>
 							</tr>
 						</table>
+						<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 						<script>
-							
+						function setT(rowNum) {
+			        $ .get  ("/random", {}, function(result) {
+			        	$ ( "#"+`t${rowNum}` ).text( result );
+			        })
+			      }
+						function setP(rowNum){
+							let value = $.get(document.getElementById((`t${rowNum}`))).innerHTML
+							console.log(value)
+							$.get("/price", {v: value}, function(result){
+								$.get("#" + `p${rowNum}`).text(result);
+							})
+						}
+
+						function setR(rowNum){
+							let value = $.get(document.getElementById((`td.t${rowNum}`))).innerHTML
+							$.get("/suggest", {v: value}, function(result){
+								$.get("#" + `r${rowNum}`).text(result);
+							})
+						}
+						// const setT = (rowNum) => $.get("/random", {}, (result) => $(`td.t${rowNum}`.text(result)))
+						// const setP = (rowNum) => $.get("/price", {v: $.get(document.getElementById((`td.t${rowNum}`)).innerHTML)}), (result) => $(`td.r${rowNum}`.text(result)))
+						// const setR = (rowNum) => $.get("/suggest", {v: $.get(document.getElementById((`td.t${rowNum}`))).innerHTML}, (result) => $(`td.r${rowNum}`.text(result)))
+						function generateRandom(){
+							for(let i = 1; i<11; i++){
+								setT(i)
+								console.log("")
+								setP(i)
+								setR(i)
+							}
+						}
 						</script>
 						<article>
 							<div class="image fit">

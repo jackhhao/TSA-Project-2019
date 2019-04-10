@@ -84,6 +84,9 @@ def randomStock():
         rc = choice(tl)
     usedStocks.append(rc)
 
+def getPrice(rc):
+    return analyze_stocks.getCurrentPrice(rc)
+
 def AD(rc):
     vl = analyze_stocks.getVolume(rc)
     senA = analyze_stocks.sentimentArticles(rc)
