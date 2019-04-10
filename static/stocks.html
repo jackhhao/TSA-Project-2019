@@ -37,7 +37,7 @@
 					<div class="flex flex-2">
 						<button onclick="generateRandom()"></button>
 						<p id="paratest"></p>
-						<table id = "stockTable">
+						<table id = "stockTable" class = "tableVals">
 							<tr id = "headers">
 								<th id = "tickerHeader"><center>Stock Ticker</center></th>
 								<th id = "priceHeader"><center>Current Price</center></th>
@@ -49,9 +49,9 @@
 								<td id = "r1"><center>100</center></td>
 							</tr>
 							<tr class = "row2">
-								<td id = "t2"><center>AAPL</center></td>
-								<td id = "p2"><center>190</center></td>
-								<td id = "r3"><center>100</center></td>
+								<td id = "t2"><center></center></td>
+								<td id = "p2"><center></center></td>
+								<td id = "r3"><center></center></td>
 							</tr>
 							<tr class = "row3">
 								<td id = "t3"><center>AAPL</center></td>
@@ -96,30 +96,27 @@
 						</table>
 						<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 						<script>
-						function setT(rowNum) {
+
+						function setT(rowNum){
+							let value
 			        $ .get  ("/random", {}, function(result) {
-			        	// $ ( "#"+`t${rowNum}` ).html(result);
-								// $ ( "#"+`t${rowNum}` ).html(result);
 								document.getElementById(`t${rowNum}`).textContent = result
+								setP(rowNum, result)
+								setR(rowNum, result)
 			        })
 			      }
-						function setP(rowNum){
-							let value = document.getElementById(`t${rowNum}`).textContent
-							// let value = $(document.getElementById(`t${rowNum}`).innerHTML).text()
-							$("p").text(value)
-							console.log(value)
-							//$('b').contents().unwrap();
 
-							$.get("/price", {v: value}, function(result){
+						function setP(rowNum, ticker){
+							$.get("/price", {v: ticker}, function(result){
 								$ ("#" + `p${rowNum}`).text(result);
 							})
 						}
 
-						function setR(rowNum){
-							// let value = $("#" + `td.t${rowNum}`).val()
-							// $.get("/suggest", {v: value}, function(result){
-							// 	$ ("#" + `r${rowNum}`).text(result);
-							// })
+						function setR(rowNum, ticker){
+
+							$.get("/suggest", {v: ticker}, function(result){
+								$ ("#" + `r${rowNum}`).text(result);
+							})
 						}
 						// const setT = (rowNum) => $.get("/random", {}, (result) => $(`td.t${rowNum}`.text(result)))
 						// const setP = (rowNum) => $.get("/price", {v: $.get(document.getElementById((`td.t${rowNum}`)).innerHTML)}), (result) => $(`td.r${rowNum}`.text(result)))
@@ -127,7 +124,6 @@
 						function generateRandom(){
 							for(let i = 1; i<11; i++){
 								setT(i)
-								console.log("")
 								setP(i)
 								setR(i)
 							}

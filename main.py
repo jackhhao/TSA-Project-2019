@@ -25,15 +25,15 @@ def lookup():
 def random():
     return stock.run.randomStock()
 
-@app.route('/price')
+@app.route('/price/')
 def price():
     rc = request.args.get('v')
-    return stock.run.getPrice(rc)
+    return str(stock.run.getPrice(rc))
 
 @app.route('/suggest/')
 def suggest():
     rc = request.args.get('v')
-    return stock.run.suggest(rc)
+    return str(stock.run.suggest(rc))
 
 @app.route('/assets/<path:path>')
 def send_assets(path):
