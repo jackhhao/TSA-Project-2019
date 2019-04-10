@@ -79,11 +79,11 @@ def suggest(rc):
     return rating
 
 def randomStock():
-    rc = 0
+    rc = choice(tl)
     while rc in usedStocks:
         rc = choice(tl)
     usedStocks.append(rc)
-    
+
 def AD(rc):
     vl = analyze_stocks.getVolume(rc)
     senA = analyze_stocks.sentimentArticles(rc)
