@@ -103,7 +103,7 @@ def sentimentConvos(ticker):
 
 def getVolatility(ticker, td):
     day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
-    L = []
+    L = [i for i in get_data(ticker = ticker, start_date = day)["close"]]
     L2 = []
     count = 0
     for i in get_data(ticker=ticker, start_date = day)["close"]:
@@ -169,4 +169,4 @@ def getFreq(ticker, td):
     print("Frequency: " + str(frequency))
     print("LowFreq: " + str(lowFreq))
     print("HighFreq: " + str(highFreq) + "\n")
-    return lowFreq, highFreq
+    return lowFreq*1.05, highFreq*1.05

@@ -8,18 +8,21 @@ app = Flask(__name__)
 def root():
     return app.send_static_file('index.html')
 
-@app.route('/s/')
-def returnG():
-    return app.send_static_file('generic.html')
+@app.route('/')
+def hRoot():
+    return app.send_static_file('index.html')
 
-@app.route('/c/')
-def returnC():
-    return app.send_static_file('elements.html')
+@app.route('/portfolio/')
+def pRoot():
+    return app.send_static_file("portfolio.html")
 
-@app.route('/suggest/')
-def suggest():
-    suggested = request.args.get('v')
-    return stock.run.main(suggested)
+@app.route('/stocks/')
+def sRoot():
+    return app.send_static_file("stocks.html")
+
+@app.route('/stocks/')
+def sRoot():
+    return app.send_static_file("stocks.html")
 
 @app.route('/convert/')
 def translate():
