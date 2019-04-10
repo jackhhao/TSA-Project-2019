@@ -9,13 +9,12 @@ from time import sleep
 from csv import reader
 from random import choice
 from time import sleep
+from math import exp
 #from win10toast import ToastNotifier
 
 #toaster = ToastNotifier()
 count = 0
 
-<<<<<<< Updated upstream
-=======
 def AD(rc):
     vl = analyze_stocks.getVolume(rc)
     senA = analyze_stocks.sentimentArticles(rc)
@@ -26,7 +25,6 @@ def AD(rc):
     print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tRating: {rating}".format(rc, vl, vt, senA, senC, high = h, low = l, rating = suggest(rc)))
     multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
 
->>>>>>> Stashed changes
 def nu(rc, h, l):
     while(True):
         if(h is not None or l is not None):
@@ -61,12 +59,11 @@ tl = [i[0] for i in r]
 
 def suggest(rc):
     rating = 0
-    e = 2.718281828459045
     vl = analyze_stocks.getVolume(rc)
     if (vl is None):
         return 0
     #print("The stock (" + rc + ") is operating at a volume of " + str(vl) + " shares on the last open trading day.")
-    vlRating = 100/(1 + 24.5*e**(-vl/1000000))
+    vlRating = 100/(1 + 24.5*(exp(-vl/1000000)))
     #print("The StockBot gives the stock a volume rating of " + str(vlRating) + ".")
     senA = analyze_stocks.sentimentArticles(rc)[0]
     senC = analyze_stocks.sentimentConvos(rc)[0]

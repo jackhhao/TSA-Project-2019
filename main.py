@@ -8,6 +8,19 @@ app = Flask(__name__)
 def root():
     return app.send_static_file('index.html')
 
+@app.route('/s/')
+def returnG():
+    return app.send_static_file('generic.html')
+
+@app.route('/c/')
+def returnC():
+    return app.send_static_file('elements.html')
+
+@app.route('/suggest/')
+def suggest():
+    suggested = request.args.get('v')
+    return stock.run.main(suggested)
+
 @app.route('/convert/')
 def translate():
     translated = request.args.get('v')
@@ -18,13 +31,5 @@ def send_assets(path):
     return send_from_directory('assets', path)
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    stock.run.main(20)
-=======
-    stock.run.main(10)
->>>>>>> Stashed changes
-=======
->>>>>>> 70f0dce9d204ba839bfbbbb28db6490eb93a768c
+    #stock.run.main(20)
     app.run(debug=True, port=5050)
-    stock.run.main(10)

@@ -16,15 +16,50 @@
 		<!-- Header -->
 			<header id="header">
 				<div class="inner">
-					<a href="index.html" class="logo">Theory</a>
+					<a href="/" class="logo">Theory</a>
 					<nav id="nav">
-						<a href="index.html">Home</a>
-						<a href="generic.html">Generic</a>
-						<a href="elements.html">Elements</a>
+						<a href="/">Home</a>
+						<a href="/s/">Suggest</a>
+						<a href="/c/">Compare</a>
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>
 			</header>
+
+			<div class = "container">
+			Number of Stocks: <input type="number" id="field1">
+		</div>
+		<div class = container-fluid>
+			<p></p>
+			<button id = "btn1" onclick="testFunc()">Submit</button>
+		</div>
+		<div class = "output">
+			<p><b>
+
+			<p id='paragraph'></p>
+
+			<script>
+
+	      function testFunc() {
+	        var value = document.getElementById("field1").value;
+	        $ .get  ("/suggest", {v: value}, function(result) {
+	        $ ( "#paragraph" ).text( result );
+	        })
+	      }
+			</script>
+
+	    <script>
+	      var input = document.getElementById("field1");
+	      input.addEventListener("keyup", function(event) {
+	        if (event.keyCode === 13) {
+	         event.preventDefault();
+	         document.getElementById("btn1").click();
+	        }
+	      });
+	    </script>
+
+	</p></b>
+	</div>
 
 		<!-- Three -->
 			<section id="three" class="wrapper">
@@ -38,7 +73,7 @@
 					<div class="flex flex-2">
 						<article>
 							<div class="image fit">
-								<img src="images/pic01.jpg" alt="Pic 01" />
+								<img src="../assets/images/pic01.jpg" alt="Pic 01" />
 							</div>
 							<header>
 								<h3>Praesent placerat magna</h3>
@@ -50,7 +85,7 @@
 						</article>
 						<article>
 							<div class="image fit">
-								<img src="images/pic02.jpg" alt="Pic 02" />
+								<img src="../assets/images/pic02.jpg" alt="Pic 02" />
 							</div>
 							<header>
 								<h3>Fusce pellentesque tempus</h3>
