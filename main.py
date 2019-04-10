@@ -28,7 +28,7 @@ def random():
 @app.route('/price/')
 def price():
     rc = request.args.get('v')
-    return str(stock.run.getPrice(rc))
+    return str('${0:.2f}'.format(stock.run.getPrice(rc)))
 
 @app.route('/suggest/')
 def suggest():
