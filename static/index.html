@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Theory by TEMPLATED</title>
+		<title>STOCK ASSISTOR</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="../assets/main.css" />
@@ -46,7 +46,7 @@
 		<script>
       function testFunc() {
         var value = document.getElementById("field1").value;
-        $ .get  ("/convert", {v: value}, function(result) {
+        $ .get  ("/lookup", {v: value}, function(result) {
         $ ( "#paragraph" ).text( result );
         })
       }

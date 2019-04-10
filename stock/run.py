@@ -16,16 +16,6 @@ from math import exp
 count = 0
 usedStocks = []
 
-def AD(rc):
-    vl = analyze_stocks.getVolume(rc)
-    senA = analyze_stocks.sentimentArticles(rc)
-    senC = analyze_stocks.sentimentConvos(rc)
-    vt = analyze_stocks.getVolatility(rc, 5)
-    h = analyze_stocks.getHL(rc, 5, "High")
-    l = analyze_stocks.getHL(rc, 5, "Low")
-    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tRating: {rating}".format(rc, vl, vt, senA, senC, high = h, low = l, rating = suggest(rc)))
-    multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
-
 def nu(rc, h, l):
     while(True):
         if(h is not None or l is not None):
@@ -83,6 +73,7 @@ def randomStock():
     while rc in usedStocks:
         rc = choice(tl)
     usedStocks.append(rc)
+    return rc
 
 def getPrice(rc):
     return analyze_stocks.getCurrentPrice(rc)

@@ -16,19 +16,20 @@ def pRoot():
 def sRoot():
     return app.send_static_file("stocks.html")
 
-@app.route('/convert/')
-def translate():
-    translated = request.args.get('v')
-    return stock.run.final(translated)
+@app.route('/lookup/')
+def lookup():
+    fetched = request.args.get('v')
+    return stock.run.final(fetched)
 
 @app.route('/random/')
 def random():
     return stock.run.randomStock()
 
 @app.route('/price')
-def getPrice():
-    translated = request.args.get('v')
+def price():
+    rc = request.args.get('v')
     return stock.run.getPrice(rc)
+
 @app.route('/suggest/')
 def suggest():
     rc = request.args.get('v')
