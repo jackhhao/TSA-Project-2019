@@ -58,6 +58,16 @@
 	}
 
 /* Containers */
+.container-fluid {
+	text-align: center;
+}
+.output {
+	text-align: center;
+}
+	.wah {
+		margin-left: auto;
+		margin-right: auto;
+	}
 
 	.container {
 		margin-left: auto;
