@@ -105,7 +105,11 @@
 								setR(rowNum, result)
 			        })
 			      }
+						function setT2(ticker){
 
+								$( "p2" ).text( "Ticker: " + ticker )
+
+						}
 						function setP(rowNum, ticker){
 							$.get("/price", {v: ticker}, function(result){
 								$ ("#" + `p${rowNum}`).text(result);
@@ -115,7 +119,15 @@
 						function setR(rowNum, ticker){
 
 							$.get("/suggest", {v: ticker}, function(result){
+								if(result>-150 && count < 2)
+								{
+								setT2(ticker);
+								count = count + 1;
+							}
+
 								$ ("#" + `r${rowNum}`).text(result);
+								let count = 0;
+
 							})
 						}
 						// const setT = (rowNum) => $.get("/random", {}, (result) => $(`td.t${rowNum}`.text(result)))
@@ -130,16 +142,15 @@
 						}
 						</script>
 						<article>
-							<div class="image fit">
-								<img src="images/pic01.jpg" alt="Pic 01" />
-							</div>
+
 							<header>
-								<h3>Praesent placerat magna</h3>
+								<h3>Suggested 1</h3>
 							</header>
-							<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor lorem ipsum.</p>
-							<footer>
-								<a href="#" class="button special">More</a>
-							</footer>
+							<p2><td id = "t14">Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue,
+								eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi,
+								tincidunt quis, accumsan porttitor lorem ipsum.
+							</td></p2>
+
 						</article>
 						<article>
 							<div class="image fit">
