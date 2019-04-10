@@ -14,6 +14,7 @@ from math import exp
 
 #toaster = ToastNotifier()
 count = 0
+usedStocks = []
 
 def AD(rc):
     vl = analyze_stocks.getVolume(rc)
@@ -77,6 +78,12 @@ def suggest(rc):
     rating = sentiment + vt*60 - abs(ac*40) + vlRating
     return rating
 
+def randomStock():
+    rc = 0
+    while rc in usedStocks:
+        rc = choice(tl)
+    usedStocks.append(rc)
+    
 def AD(rc):
     vl = analyze_stocks.getVolume(rc)
     senA = analyze_stocks.sentimentArticles(rc)
