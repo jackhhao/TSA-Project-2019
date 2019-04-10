@@ -9,7 +9,7 @@
 		<title>Theory by TEMPLATED</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/main.css" />
+		<link rel="stylesheet" href="../assets/main.css" />
 	</head>
 	<body>
 
@@ -31,13 +31,21 @@
 				<h1>Welcome to Stock Assistor</h1>
 				<p>A free responsive HTML5 website template by MAD LAD.</p>
 			</section>
-
-			<h1> STOCK ASSISTOR </h1>
+			<p></p>
+		<div class = "container">
 		Enter Stock: <input type="text" id="field1">
+	</div>
+	<div class = container-fluid>
+		<p></p>
 		<button id = "btn1" onclick="testFunc()">Submit</button>
-		<p id='paragraph'></p>
+	</div>
+	<div class = "output">
+		<p><b>
+
+		<priceOutput id='priceOutput'></priceOutput>
 
 		<script>
+<<<<<<< HEAD
       function testFunc() {
         var value = document.getElementById("field1").value;
         $ .get  ("/convert", {v: value}, function(result) {
@@ -56,6 +64,12 @@
       });
     </script>
 
+=======
+			var testFunc = () => $.get("/convert", {v: document.getElementById("field1").value}, (result) => $("priceOutput").text(result))
+		</script>
+</p></b>
+</div>
+>>>>>>> 70f0dce9d204ba839bfbbbb28db6490eb93a768c
 		<!-- One -->
 			<section id="one" class="wrapper">
 				<div class="inner">

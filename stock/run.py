@@ -63,29 +63,32 @@ def suggest(rc):
     rating = 0
     e = 2.718281828459045
     vl = analyze_stocks.getVolume(rc)
-    try:
-        senA = analyze_stocks.sentimentArticles(rc)[0]
-    except:
-        rating -= 1000
-    try:
-        senC = analyze_stocks.sentimentConvos(rc)[0]
-    except:
-        rating -= 1000
+    if (vl is None):
+        return 0
+    #print("The stock (" + rc + ") is operating at a volume of " + str(vl) + " shares on the last open trading day.")
+    vlRating = 100/(1 + 24.5*e**(-vl/1000000))
+    #print("The StockBot gives the stock a volume rating of " + str(vlRating) + ".")
+    senA = analyze_stocks.sentimentArticles(rc)[0]
+    senC = analyze_stocks.sentimentConvos(rc)[0]
     vt = analyze_stocks.getVolatility(rc, 10)
-    vl = 100/(1 + 24.5*e**(-vl/1000000))
     ac = analyze_stocks.getActualVolatility(rc, 10)
-    sentiment = ((senA*100)+(senC*100))/2
-    rating = sentiment + vt*20 - abs(ac*20) + vl
+    try:
+        sentiment = ((senA*100)+(senC*100))/2
+    except:
+        sentiment = 0
+        rating -= 1000
+    rating = sentiment + vt*60 - abs(ac*40) + vlRating
     return rating
 
 def AD(rc):
     vl = analyze_stocks.getVolume(rc)
     senA = analyze_stocks.sentimentArticles(rc)
     senC = analyze_stocks.sentimentConvos(rc)
-    vt = analyze_stocks.getVolatility(rc, 5)
-    h = analyze_stocks.getHL(rc, 5, "High")
-    l = analyze_stocks.getHL(rc, 5, "Low")
-    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tRating: {rating}".format(rc, vl, vt, senA, senC, high = h, low = l, rating = suggest(rc)))
+    vt = analyze_stocks.getVolatility(rc, 10)
+    ac = analyze_stocks.getActualVolatility(rc, 10)
+    h = analyze_stocks.getHL(rc, 10, "High")
+    l = analyze_stocks.getHL(rc, 10, "Low")
+    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tActual Volatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tRating: {rating}".format(rc, vl, vt, ac, senA, senC, high = h, low = l, rating = suggest(rc)))
     multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
 
 def main(amt):
