@@ -45,10 +45,31 @@
 		<priceOutput id='priceOutput'></priceOutput>
 
 		<script>
+<<<<<<< HEAD
+      function testFunc() {
+        var value = document.getElementById("field1").value;
+        $ .get  ("/convert", {v: value}, function(result) {
+        $ ( "#paragraph" ).text( result );
+        })
+      }
+		</script>
+
+    <script>
+      var input = document.getElementById("field1");
+      input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+         event.preventDefault();
+         document.getElementById("btn1").click();
+        }
+      });
+    </script>
+
+=======
 			var testFunc = () => $.get("/convert", {v: document.getElementById("field1").value}, (result) => $("priceOutput").text(result))
 		</script>
 </p></b>
 </div>
+>>>>>>> 70f0dce9d204ba839bfbbbb28db6490eb93a768c
 		<!-- One -->
 			<section id="one" class="wrapper">
 				<div class="inner">

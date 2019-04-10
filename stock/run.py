@@ -14,16 +14,29 @@ from time import sleep
 #toaster = ToastNotifier()
 count = 0
 
+<<<<<<< Updated upstream
+=======
+def AD(rc):
+    vl = analyze_stocks.getVolume(rc)
+    senA = analyze_stocks.sentimentArticles(rc)
+    senC = analyze_stocks.sentimentConvos(rc)
+    vt = analyze_stocks.getVolatility(rc, 5)
+    h = analyze_stocks.getHL(rc, 5, "High")
+    l = analyze_stocks.getHL(rc, 5, "Low")
+    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tRating: {rating}".format(rc, vl, vt, senA, senC, high = h, low = l, rating = suggest(rc)))
+    multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
+
+>>>>>>> Stashed changes
 def nu(rc, h, l):
     while(True):
         if(h is not None or l is not None):
             if(analyze_stocks.getCurrentPrice(rc) == l):
-                s.call(["notify-send", "-i", "/home/usr/Downloads/money.jpeg", "Buy stock {stock} right now!".format(stock = rc)])
+                s.call(["notify-send", "-i", "../assets/money.jpeg", "Buy stock {stock} right now!".format(stock = rc)])
                 #toaster.show_toast("Stock Bot", "Buy stock {stock} right now!".format(stock = rc), duration = 10)
                 print("Enter a stock to lookup: ")
                 break
             elif(analyze_stocks.getCurrentPrice(rc) == h):
-                s.check_call(["notify-send", "-i", "/home/usr/Downloads/money.jpeg", "Sell stock {stock} right now!".format(stock = rc)])
+                s.check_call(["notify-send", "-i", "../assets/money.jpeg", "Sell stock {stock} right now!".format(stock = rc)])
                 #toaster.show_toast("Stock Bot", "Sell stock {stock} right now! Go to console.".format(stock = rc), duration = 10)
                 print("Enter a stock to lookup: ")
                 break
