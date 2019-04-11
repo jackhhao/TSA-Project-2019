@@ -35,7 +35,8 @@
 					</header>
 					<p>Go to the table and click on a box in order to see why we rated it well.</p>
 					<div class="flex flex-2">
-						<button onclick='generateRandom()' type = "generate">Click to generate random stocks!</button>
+						<button id='btn1' type = "generate">Click to generate random stocks!</button>
+						<p id="paratest"></p>
 						<table id = "stockTable" class = "tableVals">
 							<tr id = "headers">
 								<th id = "tickerHeader"><center>Stock Ticker</center></th>
@@ -176,7 +177,7 @@
 									let header = document.createTextNode(`Stock: ${ticker}`)
 									h3.appendChild(header)
 									let p = document.createElement("p")
-									let vt = document.createTextNode(`Volatility: ${getVt(ticker)}`)
+									let vt = document.createTextNode(`Volatility: ${getVT(ticker)}`)
 									let vl = document.createTextNode(`Volume: ${getVl(ticker)}`)
 									let b = document.createTextNode(`Beta: ${getBeta(ticker)}`)
 									p.appendChild(vt)
@@ -190,6 +191,12 @@
 							 }
 							})
 						}
+						function generateRandom(){
+							for(let i = 1; i<11; i++){
+								setT(i)
+							}
+						}
+						document.getElementById("btn1").addEventListener ("click", generateRandom(), false);
 						</script>
 
 
