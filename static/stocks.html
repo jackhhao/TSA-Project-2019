@@ -131,7 +131,6 @@
 						function getVt(ticker){
 							let rv
 							$.get("/volatility", {v : ticker}, function (result){
-								console.log(result)
 								rv = result
 							})
 							return rv
