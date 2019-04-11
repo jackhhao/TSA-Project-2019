@@ -31,7 +31,14 @@ def nu(rc, h, l):
                 break
         else:
             break
+def returnVolume(rc):
+    return analyze_stocks.getVolume(rc)
+def returnVolatility(rc):
+    return analyze_stocks.getVolatility(rc)
+def returnBeta(rc):
+    return analyze_stocks.getBeta(rc)
 
+    return analyze_stocks.getVolume(rc)
 def final(rc):
     sellAt = analyze_stocks.getHL(rc, 10, "High")
     buyAt = analyze_stocks.getHL(rc, 10, "Low")
