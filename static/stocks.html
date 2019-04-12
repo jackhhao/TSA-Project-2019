@@ -163,7 +163,7 @@
 						function setR(rowNum, ticker){
 							$.get("/suggest", {v: ticker}, function(result){
 								$ ("#" + `r${rowNum}`).text(parseFloat(result).toFixed(4).toString());
-								if(parseFloat(result) >= -400	){
+								if(parseFloat(result) >= 50	){
 									localStorage.setItem(`stock${count++}`, ticker)
 									let modal = document.createElement("div")
 									let overlay = document.createElement("div")
@@ -187,7 +187,7 @@
 									overlay.appendChild(modal_content)
 									modal.appendChild(overlay)
 
-									$("#suggestions").append(`<p><a href = '#stockModal${ticker}' rel = 'modal:open'>${ticker}</a></p>`)
+									$("#suggestions").append(`<p><a data-target="#stockModal${ticker}" data-toggle="modal" href='#stockModal${ticker}'	>${ticker}</a></p>`)
 							 }
 							})
 						}
@@ -199,7 +199,8 @@
 				<div class="inner">
 					<div class="flex">
 						<div class="copyright">
-							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+							&copy; Untitled. Design: <a href="htt
+							ps://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
 						</div>
 						<ul class="icons">
 							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>

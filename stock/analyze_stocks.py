@@ -42,7 +42,7 @@ def getVolume(t):
     return get_quote_table(t)["Volume"]
 
 def getHL(t, td, opt):
-    day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
+    day = (date.today() - timedelta(td)).strftime("%m/%d/%y")
     try:
         mean = get_data(ticker=t, start_date = day)["close"].mean()
         stdev = np.std(get_data(ticker=t, start_date = day)["close"])/mean
@@ -102,7 +102,7 @@ def sentimentConvos(ticker):
         return None, None
 
 def getVolatility(ticker, td):
-    day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
+    day = (date.today() - timedelta(td)).strftime("%m/%d/%y")
     L = [i for i in get_data(ticker = ticker, start_date = day)["close"]]
     L2 = []
     count = 0
@@ -115,7 +115,7 @@ def getVolatility(ticker, td):
     return avgVolatility
 
 def getActualVolatility(str, td):
-    day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
+    day = (date.today() - timedelta(td)).strftime("%m/%d/%y")
     L = []
     L2 = []
     count = 0
@@ -159,7 +159,7 @@ def searchHL(x, lowPrices, highPrices):
             return -1
 
 def getFreq(ticker, td):
-    day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
+    day = (date.today() - timedelta(td)).strftime("%m/%d/%y")
     highPrices = [i for i in get_data(ticker = ticker, start_date=day)["high"]]
     lowPrices = [i for i in get_data(ticker = ticker, start_date = day)["low"]]
     allPrices = highPrices + lowPrices
