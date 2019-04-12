@@ -28,13 +28,13 @@ def random():
 @app.route('/volume/')
 def volume():
     rc = request.args.get('v')
-    return str(stock.run.returnVolume(rc, 10))
+    return str(stock.run.returnVolume(rc))
 
 
 @app.route('/volatility/')
 def volatility():
     fetched = request.args.get('v')
-    return stock.run.returnVolatility(fetched, 10)
+    return stock.run.returnVolatility(fetched)
 
 @app.route('/beta/')
 def beta():
