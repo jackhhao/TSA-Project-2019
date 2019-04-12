@@ -32,7 +32,7 @@ def nu(rc, h, l):
         else:
             break
 def returnVolume(rc):
-    return analyze_stocks.getVolume(rc, 10)
+    return analyze_stocks.getVolume(rc)
 def returnVolatility(rc):
     return analyze_stocks.getVolatility(rc, 10)
 def returnBeta(rc):

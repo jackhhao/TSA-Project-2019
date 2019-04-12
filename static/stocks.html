@@ -93,10 +93,7 @@
 								<td id = "r10"><center></center></td>
 							</tr>
 						</table>
-						<div id="stockModal" class="modal">
-						  <p>Thanks for clicking. That felt good.</p>
-						  <a href="#" rel="modal:close">Close</a>
-						</div>
+						<div id = "modals"></div>
 
 <!-- Link to open the modal -->
 						<div id = "suggestions">
@@ -107,9 +104,13 @@
 						<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 						<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+						<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 						<script>
 
 						let count = 0
+
+						let dict = {}
 
 						let sug = document.getElementById("suggestions")
 
@@ -129,21 +130,23 @@
 						}
 
 						function getVt(ticker){
-							let rv
-							$.get("/volatility", {v : ticker}, function (result){
-								rv = result
+						$.get("/volatility", {v : ticker}, function (result){
+								dict[`volatility${ticker}`] = result;
 							})
-							return rv
 						}
 
 						function getVl(ticker){
-							let rv
-							$.get("/volume", {v : ticker}, (result) => (rv = result))
-							return rv
+							let rv2
+							$.get("/volume", {v : ticker}, function(result){
+								rv2 = result
+							})
+							return rv2
 						}
 
 						function getBeta(ticker){
-							$.get("/beta", {v : ticker}, (result) => (rv = result))
+							let rv3
+							$.get("/beta", {v : ticker}, (result) => (rv3 = result))
+							return rv3
 						}
 
 						function setT(rowNum){
@@ -163,7 +166,7 @@
 						function setR(rowNum, ticker){
 							$.get("/suggest", {v: ticker}, function(result){
 								$ ("#" + `r${rowNum}`).text(parseFloat(result).toFixed(4).toString());
-								if(parseFloat(result) >= 50	){
+								if(parseFloat(result) >= 10	){
 									localStorage.setItem(`stock${count++}`, ticker)
 									let modal = document.createElement("div")
 									let overlay = document.createElement("div")
@@ -176,7 +179,12 @@
 									let header = document.createTextNode(`Stock: ${ticker}`)
 									h3.appendChild(header)
 									let p = document.createElement("p")
-									let vt = document.createTextNode(`Volatility: ${getVt(ticker)}`)
+									$.when(getVt(ticker)).done(volat = dict[`volatility${ticker}`])
+									$.get("/volatility", {v : ticker}, function (result){
+										dict[`volatility${ticker}`]
+									})
+
+									let vt = document.createTextNode(`Volatility: ${dict[`volatility${ticker}`]}`)
 									let vl = document.createTextNode(`Volume: ${getVl(ticker)}`)
 									let b = document.createTextNode(`Beta: ${getBeta(ticker)}`)
 									p.appendChild(vt)
@@ -186,8 +194,9 @@
 									modal_content.appendChild(p)
 									overlay.appendChild(modal_content)
 									modal.appendChild(overlay)
-
-									$("#suggestions").append(`<p><a data-target="#stockModal${ticker}" data-toggle="modal" href='#stockModal${ticker}'	>${ticker}</a></p>`)
+									let modals = document.getElementById("modals")
+									modals.appendChild(modal)
+									$("#suggestions").append(`<p><a href = "#stockModal${ticker}" rel = "modal:open">${ticker}</a></p>`)
 							 }
 							})
 						}
@@ -205,8 +214,8 @@
 						<ul class="icons">
 							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
 							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
 							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
 							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
 						</ul>
 					</div>
