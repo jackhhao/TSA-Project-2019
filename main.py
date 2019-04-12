@@ -35,6 +35,21 @@ def suggest():
     rc = request.args.get('v')
     return str(stock.run.suggest(rc))
 
+@app.route('/volume/')
+def volume():
+    rc = request.args.get('v')
+    return stock.run.returnVolume(rc)
+
+@app.route('/beta/')
+def beta():
+    rc = request.args.get('v')
+    return str(stock.run.returnBeta(rc))
+
+@app.route('/volatility/')
+def volatility():
+    rc = request.args.get('v')
+    return str(stock.run.returnVolatility(rc))
+
 @app.route('/assets/<path:path>')
 def send_assets(path):
     return send_from_directory('assets', path)
