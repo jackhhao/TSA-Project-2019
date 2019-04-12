@@ -30,7 +30,6 @@ def volume():
     rc = request.args.get('v')
     return str(stock.run.returnVolume(rc))
 
-
 @app.route('/volatility/')
 def volatility():
     fetched = request.args.get('v')
@@ -46,12 +45,15 @@ def price():
     rc = request.args.get('v')
     return str(stock.run.getPrice(rc))
 
-
-
 @app.route('/suggest/')
-def suggest():
+def qSuggest():
     rc = request.args.get('v')
-    return str(stock.run.suggest(rc))
+    return str(stock.run.quickSuggest(rc))
+
+@app.route('/suggest_full/')
+def fSuggest():
+    rc = request.args.get('v')
+    return str(stock.run.fullSuggest(rc))
 
 @app.route('/assets/<path:path>')
 def send_assets(path):

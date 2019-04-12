@@ -55,7 +55,7 @@ f= open("assets/companyList.csv")
 r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
 
-def suggest(rc):
+def fullSuggest(rc):
     rating = 0
     vl = analyze_stocks.getVolume(rc)
     if (vl is None):
@@ -74,6 +74,21 @@ def suggest(rc):
         sentiment = 0
         rating -= 1000
     rating = sentiment + vt*60 - abs(ac*35) + vlRating - stdev*15
+    return rating
+
+def quickSuggest(rc):
+    rating = 0
+    vl = analyze_stocks.getVolume(rc)
+    if (vl is None):
+        return 0
+    #print("The stock (" + rc + ") is operating at a volume of " + str(vl) + " shares on the last open trading day.")
+    vlRating = 100/(1 + 24.5*(exp(-vl/1000000)))
+    #print("The StockBot gives the stock a volume rating of " + str(vlRating) + ".")
+    vt = analyze_stocks.getVolatility(rc, 10)
+    ac = analyze_stocks.getActualVolatility(rc, 10)
+    stdev = analyze_stocks.volatilityStDev(rc, 10)
+
+    rating = 10 + vt*60 - abs(ac*35) + vlRating - stdev*15
     return rating
 
 def randomStock():
