@@ -38,7 +38,7 @@ def volatility():
 @app.route('/beta/')
 def beta():
     fetched = request.args.get('v')
-    return str(stock.run.returnBeta(fetched)) 
+    return str(stock.run.returnBeta(fetched))
 
 @app.route('/price/')
 def price():

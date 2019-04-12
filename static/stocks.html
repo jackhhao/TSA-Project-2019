@@ -129,24 +129,30 @@
 							}
 						}
 
+						function sleep(miliseconds) {
+                var currentTime = new Date().getTime();
+                while (currentTime + miliseconds >= new Date().getTime()) {
+                }
+            }
+
 						function getVt(ticker){
-						$.get("/volatility", {v : ticker}, function (result){
-								dict[`volatility${ticker}`] = result;
+							$.get("/volatility", {v:ticker}, function (output){
+								console.log("ok it worked")
+								dict[`volatility${ticker}`] = output
 							})
 						}
 
 						function getVl(ticker){
-							let rv2
-							$.get("/volume", {v : ticker}, function(result){
-								rv2 = result
+							$.get("/volume", {v:ticker}, function (output){
+								dict[`volume${ticker}`] = output
 							})
-							return rv2
 						}
 
 						function getBeta(ticker){
-							let rv3
-							$.get("/beta", {v : ticker}, (result) => (rv3 = result))
-							return rv3
+							$.get("/beta", {v:ticker}, function (output){
+								console.log("ok it worked")
+								dict[`beta${ticker}`] = output
+							})
 						}
 
 						function setT(rowNum){
@@ -166,6 +172,7 @@
 						function setR(rowNum, ticker){
 							$.get("/suggest", {v: ticker}, function(result){
 								$ ("#" + `r${rowNum}`).text(parseFloat(result).toFixed(4).toString());
+								console.log(1)
 								if(parseFloat(result) >= 10	){
 									localStorage.setItem(`stock${count++}`, ticker)
 									let modal = document.createElement("div")
@@ -175,30 +182,40 @@
 									modal.setAttribute("id", `stockModal${ticker}`)
 									overlay.setAttribute("class", "overlay")
 									modal_content.setAttribute("class", "modal_content")
+									getVt(ticker)
+									getVl(ticker)
+									getBeta(ticker)
 									let h3 = document.createElement("h3")
 									let header = document.createTextNode(`Stock: ${ticker}`)
 									h3.appendChild(header)
 									let p = document.createElement("p")
-									$.when(getVt(ticker)).done(volat = dict[`volatility${ticker}`])
-									$.get("/volatility", {v : ticker}, function (result){
-										dict[`volatility${ticker}`]
-									})
-
-									let vt = document.createTextNode(`Volatility: ${dict[`volatility${ticker}`]}`)
-									let vl = document.createTextNode(`Volume: ${getVl(ticker)}`)
-									let b = document.createTextNode(`Beta: ${getBeta(ticker)}`)
-									p.appendChild(vt)
-									p.appendChild(vl)
-									p.appendChild(b)
+									p.setAttribute("id", `content${ticker}`)
 									modal_content.appendChild(h3)
 									modal_content.appendChild(p)
 									overlay.appendChild(modal_content)
 									modal.appendChild(overlay)
 									let modals = document.getElementById("modals")
 									modals.appendChild(modal)
-									$("#suggestions").append(`<p><a href = "#stockModal${ticker}" rel = "modal:open">${ticker}</a></p>`)
+									$("#suggestions").append(`<p><a href = "#stockModal${ticker}" rel = "modal:open" onclick = `+`'fillModal("${ticker}")'`+`>${ticker}</a></p>`)
 							 }
 							})
+						}
+
+						function fillModal(ticker){
+							let p = document.getElementById(`content${ticker}`)
+							let vt = document.createTextNode(`Volatility: ${dict[`volatility${ticker}`]}`)
+							let br = document.createElement("br")
+							let vl = document.createTextNode(`Volume: ${dict[`volume${ticker}`]}`)
+							let br2 = document.createElement("br")
+							let b = document.createTextNode(`Beta: ${dict[`beta${ticker}`]}`)
+							let br3 = document.createElement("br")
+
+							p.appendChild(vt)
+							p.appendChild(br)
+							p.appendChild(vl)
+							p.appendChild(br2)
+							p.appendChild(b)
+							p.appendChild(br3)
 						}
 						</script>
 
