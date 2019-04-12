@@ -126,6 +126,18 @@ def getActualVolatility(str, td):
         count+=1
     return sum(L2)
 
+def volatilityStDev(ticker, td):
+    day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
+    L = []
+    L2 = []
+    count = 0
+    for i in get_data(ticker=ticker, start_date = day)["close"]:
+        L.append(i)
+    for i in get_data(ticker=ticker, start_date = day)["open"]:
+        L2.append(abs(((L[count] - i)/L[count]) * 100))
+        count+=1
+    return np.std(L2)
+
 def getBeta(t):
     try:
         return get_quote_table(t)["Beta (3Y Monthly)"]
@@ -166,7 +178,9 @@ def getFreq(ticker, td):
             if count == frequency - 1:
                 highFreq = price
         frequency = max(frequency, count)
+    lowFreq-=(np.mean(allPrices)*0.015)
+    highFreq+=(np.mean(allPrices)*0.015)
     print("Frequency: " + str(frequency))
     print("LowFreq: " + str(lowFreq))
     print("HighFreq: " + str(highFreq) + "\n")
-    return lowFreq*1.05, highFreq*1.05
+    return lowFreq, highFreq

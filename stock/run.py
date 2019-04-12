@@ -67,12 +67,13 @@ def suggest(rc):
     senC = analyze_stocks.sentimentConvos(rc)[0]
     vt = analyze_stocks.getVolatility(rc, 10)
     ac = analyze_stocks.getActualVolatility(rc, 10)
+    stdev = analyze_stocks.volatilityStDev(rc, 10)
     try:
         sentiment = ((senA*100)+(senC*100))/2
     except:
         sentiment = 0
         rating -= 1000
-    rating = sentiment + vt*60 - abs(ac*40) + vlRating
+    rating = sentiment + vt*60 - abs(ac*35) + vlRating - stdev*15
     return rating
 
 def randomStock():
@@ -93,8 +94,8 @@ def AD(rc):
     ac = analyze_stocks.getActualVolatility(rc, 10)
     h = analyze_stocks.getHL(rc, 10, "High")
     l = analyze_stocks.getHL(rc, 10, "Low")
-    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tActual Volatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tRating: {rating}".format(rc, vl, vt, ac, senA, senC, high = h, low = l, rating = suggest(rc)))
-    multiprocessing.Process(target=nu, args=(rc, h, l, )).start()
+    stdev = analyze_stocks.volatilityStDev(rc, 10)
+    print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tActual Volatility: {} \n\tStDev Volatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tRating: {rating}".format(rc, vl, vt, ac, stdev, senA, senC, high = h, low = l, rating = suggest(rc)))
 
 def main(amt):
     ls = []
