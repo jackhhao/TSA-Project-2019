@@ -25,10 +25,28 @@ def lookup():
 def random():
     return stock.run.randomStock()
 
+@app.route('/volume/')
+def volume():
+    rc = request.args.get('v')
+    return str(stock.run.returnVolume(rc, 10))
+
+
+@app.route('/volatility/')
+def volatility():
+    fetched = request.args.get('v')
+    return stock.run.returnVolatility(fetched, 10)
+
+@app.route('/beta/')
+def beta():
+    fetched = request.args.get('v')
+    return stock.run.returnBeta(fetched)
+
 @app.route('/price/')
 def price():
     rc = request.args.get('v')
     return str(stock.run.getPrice(rc))
+
+
 
 @app.route('/suggest/')
 def suggest():
