@@ -72,7 +72,7 @@ def fullSuggest(rc):
         sentiment = ((senA*100)+(senC*100))/2
     except:
         sentiment = 0
-        rating -= 1000
+        rating -= 100
     rating = sentiment + vt*60 - abs(ac*35) + vlRating - stdev*15
     return rating
 
