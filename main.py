@@ -28,42 +28,12 @@ def random():
 @app.route('/price/')
 def price():
     rc = request.args.get('v')
-    return str('${0:.2f}'.format(stock.run.getPrice(rc)))
+    return str(stock.run.getPrice(rc))
 
 @app.route('/suggest/')
 def suggest():
     rc = request.args.get('v')
-    return str('{0:.2f}'.format(stock.run.suggest(rc)))
-
-@app.route('/volume/')
-def volume():
-    fetched = request.args.get('v')
-    return stock.run.getVolume(fetched)
-
-@app.route('/volatility/')
-def volatility():
-    fetched = request.args.get('v')
-    return stock.run.getVolatility(fetched)
-
-@app.route('/beta/')
-def beta():
-    fetched = request.args.get('v')
-    return stock.run.getBeta(fetched)
-
-@app.route('/volume/')
-def volume():
-    rc = request.args.get('v')
-    return stock.run.returnVolume(rc)
-
-@app.route('/beta/')
-def beta():
-    rc = request.args.get('v')
-    return str(stock.run.returnBeta(rc))
-
-@app.route('/volatility/')
-def volatility():
-    rc = request.args.get('v')
-    return str(stock.run.returnVolatility(rc))
+    return str(stock.run.suggest(rc))
 
 @app.route('/assets/<path:path>')
 def send_assets(path):
