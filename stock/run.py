@@ -108,10 +108,10 @@ def randomStock():
     return rc
 
 def getHigh(rc):
-    return getFreq(rc, 5)[1]
+    return analyze_stocks.getFreq(rc, 5)[1]
 
 def getLow(rc):
-    return getFreq(rc, 5)[0]
+    return analyze_stocks.getFreq(rc, 5)[0]
 
 def getPrice(rc):
     return analyze_stocks.getCurrentPrice(rc)
