@@ -44,7 +44,7 @@
 							<th id = "uSellPrice"><center>Your Sell Price</center></th>
 							<th id = "lg"><center>Gain/Loss</center></th>
 						</tr>
-						<tr class = "row1">
+						<!-- <tr class = "row1">
 							<td id = "t1"><center></center></td>
 							<td id = "p1"><center></center></td>
 							<td id = "r1"><center></center></td>
@@ -93,7 +93,7 @@
 							<td id = "t10"><center></center></td>
 							<td id = "p10"><center></center></td>
 							<td id = "r10"><center></center></td>
-						</tr>
+						</tr> -->
 					</table>
 
 				<div class = "container">
@@ -101,7 +101,7 @@
 				</div>
 				<div class = container-fluid>
 					<p></p>
-					<button id = "btn1" onclick="testFunc()">Submit</button>
+					<button id = "btn1">Submit</button>
 				</div>
 				<div class = "output">
 					<p><b>
@@ -109,7 +109,23 @@
 					<p id='paragraph'></p>
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
+					<!-- <script>
+					let count = 0;
+					$('#addColumnChild').click(function(){
+						 $(`tr${count}`).each(function(){
+							 for(let i=0; i<)
+								$(this).append(`<td></td>`);
+						 });
+						});
+
+						$('#addRowChild').click(function(){
+						 $('#my-table tbody').append(`<tr>${$('#default-row').html()}</tr>`);
+						});
+					</script> -->
+
 					<script>
+					let rows = 0;
+					let cols = 7;
 			      function testFunc() {
 			        var value = document.getElementById("field1").value;
 			        $ .get  ("/lookup", {v: value}, function(result) {
@@ -117,14 +133,56 @@
 			        })
 			      }
 
-						function populate(){
-							let table = document.getElementById("stockTable")
-							let r=1;
-							while(row=table.rows[r++])
-							{
-								row.cells[0].innerHTML = localStorage.getItem(`stock${r-2}`)
-							}
-						}
+						// function populate(rows){
+						// 	let table = document.getElementById("stockTable")
+						// 	let r=1;
+						// 	while(row=table.rows[r++])
+						// 	{
+						// 		row.cells[0].innerHTML = localStorage.getItem(`stock${r-2}`)
+						// 	}
+						//
+						// 	$('#addColumnChild').click(function(){
+						// 		 $(`tr${count}`).each(function(){
+						// 			 for(let i=0; i<10;i++)
+						// 				$(this).append(`<td></td>`);
+						// 		 });
+						// 		});
+						//
+						// 		$('#addRowChild').click(function(){
+						// 		 $('#my-table tbody').append(`<tr>${$('#default-row').html()}</tr>`);
+						// 		});
+						// }
+
+						function populate() {
+								console.log("hi")
+								console.log(localStorage.getItem('stock1'))
+								console.log(localStorage.getItem('stock3'))
+								for (let i=0; i < localStorage.length; i++)
+								{
+									$("#stockTable").append(`<tr class = "row${i + 1}" id = "row${i+1}"></tr>`);
+									console.log(`<tr class=row${i + 1}>`);
+									for (let j=0; j<cols; j++)
+									{
+										var rowID;
+										switch(j)
+										{
+											case 0:
+												rowID = `t${i + 1}`
+												$(`#row${i+1}`).append(`<td id = "${rowID}"><center>${localStorage.getItem(`stock${i}`)}</center></td>`)
+											case 1:
+												rowID = `p${i + 1}`
+											case 2:
+												rowID = `r${i + 1}`
+										}
+
+										console.log(`<td id = "${rowID}"><center>AAPL</center></td>`);
+									}
+									// $("#stockTable").append(`</tr>`);
+									console.log(`</tr>`)
+								}
+								console.log(document.getElementById("stockTable").innerHTML);
+						};
+						window.onload=populate;
 					</script>
 
 			    <script>
