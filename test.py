@@ -1,4 +1,6 @@
 import stock.analyze_stocks as analyze_stocks
+import stock.run as run
+
 def AD(rc):
     vl = analyze_stocks.getVolume(rc)
     print(vl)
@@ -15,4 +17,5 @@ def AD(rc):
     print(b)
     #print ("Stock: {} \n\tVolume: {} \n\tVolatility: {} \n\tActual Volatility: {} \n\tStDev Volatility: {} \n\tSentiment and Magnitude of Articles: {} \n\tSentiment and Magnitude of Conversations: {}\n\tHigh: {high}\n\tLow: {low} \n\tRating: {rating}".format(rc, vl, vt, ac, stdev, senA, senC, high = h, low = l, rating = suggest(rc)))
 
-AD("PETQ")
+print(run.quickSuggest("NFLX"))
+print(run.fullSuggest("NFLX"))
