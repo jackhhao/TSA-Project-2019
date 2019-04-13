@@ -37,7 +37,15 @@
 	<div class = container-fluid>
 		<p></p>
 		<button id = "btn1" onclick="testFunc()">Submit</button>
-		<button id = "btn2" onclick = "fillModal()">Open Modal </button>
+		<button id = "btn2" onclick = "fillModal()">Open Modal</button>
+	</div>
+	<div id="modal">
+		<div class="overlay" id="overlay1">
+			<div class="modal_content" id="modal_content1">
+				<h3 id="testh3"></h3>
+				<p id="testp"></p>
+			</div>
+		</div>
 	</div>
 	<div id = "suggestions"></div>
 	<div class = "output">
@@ -52,6 +60,8 @@
 						let count = 0
 
 						let dict = {}
+
+
 
 						let sug = document.getElementById("suggestions")
 
@@ -88,10 +98,17 @@
 
 						function setR(ticker){
 							$.get("/suggest", {v: ticker}, function(result){
-								if(parseFloat(result) >= 10	){
-									let modal = document.createElement("div")
-									let overlay = document.createElement("div")
-									let modal_content = document.createElement("div")
+								console.log("hi")
+								if(true){
+									let modal = document.getElementById("modal")
+
+									let overlay = document.getElementById("overlay1")
+
+									let modal_content = document.getElementById("modal_content1")
+
+									let h3 = document.getElementById("testh3")
+
+									let p = document.getElementById("testp")
 									modal.setAttribute("class", "modal")
 									modal.setAttribute("id", `stockModal${ticker}`)
 									overlay.setAttribute("class", "overlay")
@@ -99,17 +116,18 @@
 									getVt(ticker)
 									getVl(ticker)
 									getBeta(ticker)
-									let h3 = document.createElement("h3")
+
 									let header = document.createTextNode(`Stock: ${ticker}`)
 									h3.appendChild(header)
-									let p = document.createElement("p")
 									p.setAttribute("id", `content${ticker}`)
+									console.log("bruh" + p.innerHTML)
 									modal_content.appendChild(h3)
 									modal_content.appendChild(p)
 									overlay.appendChild(modal_content)
 									modal.appendChild(overlay)
 									let modals = document.getElementById("content")
 									modals.appendChild(modal)
+									console.log(modals)
 									$("#suggestions").append(`<p><a href = "#stockModal${ticker}" rel = "modal:open" onclick = `+`'fillModal("${ticker}")'`+`>${ticker}</a></p>`)
 							 }
 							})
@@ -129,9 +147,11 @@
 						}
 
 						function fillModal(ticker){
-							$(`#content${ticker}`).empty()
+							// $(`#content${ticker}`).empty()
 							$.get("/createCS", {v: ticker}, () => {})
-							let p = document.getElementById(`content${ticker}`)
+							console.log(ticker)
+							let test = document.getElementById(`stockModal${ticker}`)
+							console.log(test)
 							let vt = document.createTextNode(`Volatility: ${dict[`volatility${ticker}`]}`)
 							let br = document.createElement("br")
 							let vl = document.createTextNode(`Volume: ${dict[`volume${ticker}`]}`)
@@ -149,14 +169,14 @@
 							img.setAttribute("id",`${ticker}Img`)
 							d = new Date();
 							$(`#${ticker}Img`).attr("src", `../assets/images/chartSeries${ticker}.jpg`+d.getTime());
-							p.appendChild(vt)
-							p.appendChild(br)
-							p.appendChild(vl)
-							p.appendChild(br2)
-							p.appendChild(b)
-							p.appendChild(br3)
-							p.appendChild(img)
-							p.append(button)
+							test.appendChild(vt)
+							test.appendChild(br)
+							test.appendChild(vl)
+							test.appendChild(br2)
+							test.appendChild(b)
+							test.appendChild(br3)
+							test.appendChild(img)
+							test.append(button)
 						}
 
 						let input = document.getElementById("field1");
