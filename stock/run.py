@@ -61,7 +61,7 @@ def fullSuggest(rc):
     if (vl is None):
         return 0
     #print("The stock (" + rc + ") is operating at a volume of " + str(vl) + " shares on the last open trading day.")
-    vlRating = 100/(1 + 24.5*(exp(-vl/1000000)))
+    vlRating = 100/(1 + 10.77*(exp(-1.2*vl/1000000)))
     #print("The StockBot gives the stock a volume rating of " + str(vlRating) + ".")
     senA = analyze_stocks.sentimentArticles(rc)[0]
     senC = analyze_stocks.sentimentConvos(rc)[0]
@@ -82,7 +82,7 @@ def quickSuggest(rc):
     if (vl is None):
         return 0
     #print("The stock (" + rc + ") is operating at a volume of " + str(vl) + " shares on the last open trading day.")
-    vlRating = 100/(1 + 24.5*(exp(-vl/1000000)))
+    vlRating = 100/(1 + 10.77*(exp(-1.2*vl/1000000)))
     #print("The StockBot gives the stock a volume rating of " + str(vlRating) + ".")
     vt = analyze_stocks.getVolatility(rc, 10)
     ac = analyze_stocks.getActualVolatility(rc, 10)
