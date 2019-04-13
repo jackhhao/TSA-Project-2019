@@ -58,7 +58,22 @@ def fSuggest():
     rc = request.args.get('v')
     return str(stock.run.fullSuggest(rc))
 
+@app.route('/createCS')
+def cI():
+    rc = request.args.get('v')
+    stock.run.createChartSeries(rc)
+    return "hi"
 
+@app.route('/getHigh')
+def gH():
+    rc = request.args.get('v')
+    return stock.run.getHigh(rc)
+
+@app.route('/getLow')
+def gL():
+    rc = request.args.get('v')
+    return stock.run.getLow(rc)
+    
 @app.route('/assets/<path:path>')
 def send_assets(path):
     return send_from_directory('assets', path)
