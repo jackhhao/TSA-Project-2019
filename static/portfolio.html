@@ -33,76 +33,8 @@
 						<h2>Portfolio</h2>
 						<p>Track Selected Stocks</p>
 					</header>
+				<div class = "flex flex 2" id = "flex-div"></div>
 
-					<table id = "stockTable" class = "tableVals">
-						<tr id = "headers">
-							<th id = "tickerHeader"><center>Stock Ticker</center></th>
-							<th id = "currentPriceHeader"><center>Current Price</center></th>
-							<th id = "recBuyPrice"><center>Recommend Buy Price</center></th>
-							<th id = "recSellPrice"><center>Recommend Sell Price</center></th>
-							<th id = "uBuyPrice"><center>Your Buy Price</center></th>
-							<th id = "uSellPrice"><center>Your Sell Price</center></th>
-							<th id = "lg"><center>Gain/Loss</center></th>
-						</tr>
-						<!-- <tr class = "row1">
-							<td id = "t1"><center></center></td>
-							<td id = "p1"><center></center></td>
-							<td id = "r1"><center></center></td>
-						</tr>
-						<tr class = "row2">
-							<td id = "t2"><center></center></td>
-							<td id = "p2"><center></center></td>
-							<td id = "r2"><center></center></td>
-						</tr>
-						<tr class = "row3">
-							<td id = "t3"><center></center></td>
-							<td id = "p3"><center></center></td>
-							<td id = "r3"><center></center></td>
-						</tr>
-						<tr class = "row4">
-							<td id = "t4"><center></center></td>
-							<td id = "p4"><center></center></td>
-							<td id = "r4"><center></center></td>
-						</tr>
-						<tr class = "row5">
-							<td id = "t5"><center></center></td>
-							<td id = "p5"><center></center></td>
-							<td id = "r5"><center></center></td>
-						</tr>
-						<tr class = "row6">
-							<td id = "t6"><center></center></td>
-							<td id = "p6"><center></center></td>
-							<td id = "r6"><center></center></td>
-						</tr>
-						<tr class = "row7">
-							<td id = "t7"><center></center></td>
-							<td id = "p7"><center></center></td>
-							<td id = "r7"><center></center></td>
-						</tr>
-						<tr class = "row8">
-							<td id = "t8"><center></center></td>
-							<td id = "p8"><center></center></td>
-							<td id = "r8"><center></center></td>
-						</tr>
-						<tr class = "row9">
-							<td id = "t9"><center></center></td>
-							<td id = "p9"><center></center></td>
-							<td id = "r9"><center></center></td>
-						</tr>
-						<tr class = "row10">
-							<td id = "t10"><center></center></td>
-							<td id = "p10"><center></center></td>
-							<td id = "r10"><center></center></td>
-						</tr> -->
-					</table>
-
-				<div class = "container">
-					Enter Stock: <input type="text" id="field1">
-				</div>
-				<div class = container-fluid>
-					<p></p>
-					<button id = "btn1">Submit</button>
-				</div>
 				<div class = "output">
 					<p><b>
 
@@ -126,12 +58,6 @@
 					<script>
 					let rows = 0;
 					let cols = 7;
-			      function testFunc() {
-			        var value = document.getElementById("field1").value;
-			        $ .get  ("/lookup", {v: value}, function(result) {
-			        $ ( "#paragraph" ).text( result );
-			        })
-			      }
 
 						// function populate(rows){
 						// 	let table = document.getElementById("stockTable")
@@ -153,45 +79,105 @@
 						// 		});
 						// }
 
-						function populate() {
-								console.log("hi")
-								console.log(localStorage.getItem('stock1'))
-								console.log(localStorage.getItem('stock3'))
-								for (let i=0; i < localStorage.length; i++)
+						function setP(rowNum, ticker){
+							$.get("/price", {v: ticker}, function(result){
+								let newResult;
+								if (!(isNaN(result)))
 								{
-									$("#stockTable").append(`<tr class = "row${i + 1}" id = "row${i+1}"></tr>`);
-									console.log(`<tr class=row${i + 1}>`);
-									for (let j=0; j<cols; j++)
-									{
-										var rowID;
-										switch(j)
-										{
-											case 0:
-												rowID = `t${i + 1}`
-												$(`#row${i+1}`).append(`<td id = "${rowID}"><center>${localStorage.getItem(`stock${i}`)}</center></td>`)
-											case 1:
-												rowID = `p${i + 1}`
-											case 2:
-												rowID = `r${i + 1}`
-										}
+									newResult = "$" + parseFloat(result).toFixed(2).toString();
+								}
+								else
+								{
+									newResult = "None";
+								}
+								$("#" + `p${rowNum}`).text(newResult);
+							})
+						}
 
-										console.log(`<td id = "${rowID}"><center>AAPL</center></td>`);
+						function setT(rowNum){
+							let result = localStorage.getItem(`stock${rowNum-1}`)
+							console.log(result)
+							document.getElementById(`t${rowNum}`).innerHTML = result
+								setP(rowNum, result)
+								setR(rowNum, result)
+								setH(rowNum, result)
+								setL(rowNum, result)
+						}
+
+						function setR(rowNum, ticker){
+							$.get("/suggest_full", {v: ticker}, function(result){
+								$ ("#" + `r${rowNum}`).text(parseFloat(result).toFixed(4).toString());
+							})
+						}
+
+						function setH(rowNum, ticker){
+							$.get("/getHigh", {v: ticker}, function(result){
+								$ ("#" + `rb${rowNum}`).text(parseFloat(result).toFixed(2).toString());
+							})
+						}
+
+						function setL(rowNum, ticker){
+							$.get("/getLow", {v: ticker}, function(result){
+								$ ("#" + `rs${rowNum}`).text(parseFloat(result).toFixed(2).toString());
+							})
+						}
+
+						function populate(){
+
+							let cols = 5
+							let rowsFill = localStorage.length-1
+							console.log(rowsFill)
+							$("#flex-div").append(`<table id = "stockTable" class = "tableVals"></table>`)
+							$("#stockTable").empty()
+							$('#stockTable div').html('');
+							$("#stockTable").append(`<tr id = "headers">
+								<th id = "tickerHeader"><center>Stock Ticker</center></th>
+								<th id = "ratingHeader"><center>Our Rating</center></th>
+								<th id = "priceHeader"><center>Current Price</center></th>
+								<th id = "rBuyHeader"><center>Recommend Buy Price</center></th>
+								<th id = "rSellHeader"><center>Recommend Sell Price</center></th>
+							</tr>`)
+
+							for(let i = 0; i < rowsFill; i++){
+								$("#stockTable").append(`<tr class = "row${i + 1}" id = "row${i+1}"></tr>`);
+								for (let j = 0; j < cols; j++)
+								{
+									var rowID;
+									switch(j)
+									{
+										case 0:
+											rowID = `t${i + 1}`
+											break;
+										case 1:
+											rowID = `r${i + 1}`
+											break;
+										case 2:
+											rowID = `p${i + 1}`
+											break;
+										case 3:
+											rowID = `rb${i+1}`
+											break;
+										case 4:
+											rowID = `rs${i+1}`
+											break;
 									}
+									$(`#row${i+1}`).append(`<td id = "${rowID}"><center></center></td>`)
 								}
 								console.log(document.getElementById("stockTable").innerHTML);
-						};
+}
+								let r=1;
+								let table = document.getElementById("stockTable");
+								while(row=table.rows[r++])
+								{
+								  let c=0;
+								  while(cell=row.cells[c++]){cell.innerHTML="";}
+								}
+								for(let x = 1; x < rowsFill + 1; x++){
+									setT(x)
+								}
+							}
 						window.onload=populate;
 					</script>
-
-			    <script>
-			      var input = document.getElementById("field1");
-			      input.addEventListener("keyup", function(event) {
-			        if (event.keyCode === 13) {
-			         event.preventDefault();
-			         document.getElementById("btn1").click();
-			        }
-			      });
-			    </script>
 
 
 		<!-- Footer -->

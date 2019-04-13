@@ -4,6 +4,7 @@ import stock.analyze_stocks as analyze_stocks
 import webbrowser
 import pip
 import subprocess as s
+from datetime import date, timedelta
 
 from time import sleep
 from csv import reader
@@ -73,7 +74,7 @@ def fullSuggest(rc):
     except:
         sentiment = 0
         rating -= 100
-    rating = sentiment + vt*60 - abs(ac*35) + vlRating - stdev*15
+    rating = sentiment + vt*60 - abs(ac*35) + vlRating/1.5 - stdev*15
     return rating
 
 def quickSuggest(rc):
@@ -88,8 +89,16 @@ def quickSuggest(rc):
     ac = analyze_stocks.getActualVolatility(rc, 10)
     stdev = analyze_stocks.volatilityStDev(rc, 10)
 
-    rating = 10 + vt*60 - abs(ac*35) + vlRating - stdev*15
+    rating = 10 + vt*60 - abs(ac*35) + vlRating/1.5 - stdev*15
     return rating
+
+def createImages(ticker):
+    os.system(("sudo Rscript ./assets/R/plot.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
+    os.system(("sudo Rscript ./assets/R/candleChart.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
+    os.system(("sudo Rscript ./assets/R/forecast.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
+
+def createChartSeries(ticker):
+    os.system(("sudo Rscript ./assets/R/chartSeries.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
 
 def randomStock():
     rc = choice(tl)
@@ -97,6 +106,12 @@ def randomStock():
         rc = choice(tl)
     usedStocks.append(rc)
     return rc
+
+def getHigh(rc):
+    return getFreq(rc, 5)[1]
+
+def getLow(rc):
+    return getFreq(rc, 5)[0]
 
 def getPrice(rc):
     return analyze_stocks.getCurrentPrice(rc)

@@ -1,4 +1,4 @@
-code.directory <- "~/Github/TSA-Project-2019/assests/R"
+code.directory <- "~/Github/TSA-Project-2019/assests/R/ChartSeries"
 options("getSymbols.warning4.0"=FALSE)
 args <- commandArgs(trailingOnly = TRUE)
 file.create("TSA_METHOD_2", to = code.directory)
@@ -13,6 +13,7 @@ library("quantmod", character.only = TRUE)
 start_date <- args[1]
 end_date <- args[2]
 ticker <- args[3]
+fileName <- args[4]
 stock_part4 <- function(start_date, end_date, ticker){
   start.date = as.Date(start_date)
   end.date = as.Date(end_date)
@@ -32,7 +33,7 @@ stock_part4 <- function(start_date, end_date, ticker){
   z.frame$DATE <- as.Date(rownames(z.frame))
   z.frame <- z.frame[, c(2,1)]
   rownames(z.frame) <- NULL
-  View(z.frame)
+  #View(z.frame)
   Sys.sleep(2)
   chartSeries(as.xts(data.frame(y)), type = c("line"), name = paste("Ticker Symbol: ", ticker, sep = ""))
   a <- 0
@@ -52,9 +53,9 @@ stock_part4 <- function(start_date, end_date, ticker){
   }
 }
 #stock_part2(start_date, end_date, ticker)
-setwd("../images")
+setwd("./assets/images")
 #mypath <- file.path("","Users","raviraghavan","Downloads" ,paste("myplot_", ticker, ".jpg", sep = ""))
 print(getwd())
-jpeg(paste("chartSeries", ".jpg", sep = ""), width = 450, height = 450)
+jpeg(paste(fileName, ".jpg", sep = ""), width = 450, height = 450)
 print(stock_part4(start_date, end_date, ticker))
 dev.off()

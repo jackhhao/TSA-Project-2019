@@ -37,30 +37,138 @@
 	<div class = container-fluid>
 		<p></p>
 		<button id = "btn1" onclick="testFunc()">Submit</button>
+		<button id = "btn2" onclick = "fillModal()">Open Modal </button>
 	</div>
+	<div id = "suggestions"></div>
 	<div class = "output">
 		<p><b>
 
 		<p id='paragraph'></p>
 
-		<script>
-      function testFunc() {
-        var value = document.getElementById("field1").value;
-        $ .get  ("/lookup", {v: value}, function(result) {
-        $ ( "#paragraph" ).text( result );
-        })
-      }
-		</script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
-    <script>
-      var input = document.getElementById("field1");
-      input.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-         event.preventDefault();
-         document.getElementById("btn1").click();
-        }
-      });
-    </script>
+		<script>
+
+						let count = 0
+
+						let dict = {}
+
+						let sug = document.getElementById("suggestions")
+
+						function testFunc(){
+							setR(document.getElementById("field1").value)
+							console.log(document.getElementById("field1").value)
+						}
+
+						function sleep(miliseconds) {
+                var currentTime = new Date().getTime();
+                while (currentTime + miliseconds >= new Date().getTime()) {
+                }
+            }
+
+						function getVt(ticker){
+							$.get("/volatility", {v:ticker}, function (output){
+								console.log("ok it worked")
+								dict[`volatility${ticker}`] = output
+							})
+						}
+
+						function getVl(ticker){
+							$.get("/volume", {v:ticker}, function (output){
+								dict[`volume${ticker}`] = output
+							})
+						}
+
+						function getBeta(ticker){
+							$.get("/beta", {v:ticker}, function (output){
+								console.log("ok it worked")
+								dict[`beta${ticker}`] = output
+							})
+						}
+
+						function setR(ticker){
+							$.get("/suggest", {v: ticker}, function(result){
+								if(parseFloat(result) >= 10	){
+									let modal = document.createElement("div")
+									let overlay = document.createElement("div")
+									let modal_content = document.createElement("div")
+									modal.setAttribute("class", "modal")
+									modal.setAttribute("id", `stockModal${ticker}`)
+									overlay.setAttribute("class", "overlay")
+									modal_content.setAttribute("class", "modal_content")
+									getVt(ticker)
+									getVl(ticker)
+									getBeta(ticker)
+									let h3 = document.createElement("h3")
+									let header = document.createTextNode(`Stock: ${ticker}`)
+									h3.appendChild(header)
+									let p = document.createElement("p")
+									p.setAttribute("id", `content${ticker}`)
+									modal_content.appendChild(h3)
+									modal_content.appendChild(p)
+									overlay.appendChild(modal_content)
+									modal.appendChild(overlay)
+									let modals = document.getElementById("content")
+									modals.appendChild(modal)
+									$("#suggestions").append(`<p><a href = "#stockModal${ticker}" rel = "modal:open" onclick = `+`'fillModal("${ticker}")'`+`>${ticker}</a></p>`)
+							 }
+							})
+						}
+
+						function appendLS(ticker){
+							str_count = localStorage.getItem("count");
+					    if (str_count == null || str_count == "null"){
+					      count = 0;
+					    } else {
+					      count = parseInt(str_count);
+					    }
+					    count++;
+
+					    localStorage.setItem("count", count);
+							localStorage.setItem(`stock${count}`, ticker)
+						}
+
+						function fillModal(ticker){
+							$(`#content${ticker}`).empty()
+							$.get("/createCS", {v: ticker}, () => {})
+							let p = document.getElementById(`content${ticker}`)
+							let vt = document.createTextNode(`Volatility: ${dict[`volatility${ticker}`]}`)
+							let br = document.createElement("br")
+							let vl = document.createTextNode(`Volume: ${dict[`volume${ticker}`]}`)
+							let br2 = document.createElement("br")
+							let b = document.createTextNode(`Beta: ${dict[`beta${ticker}`]}`)
+							let br3 = document.createElement("br")
+							let img = document.createElement("img")
+							let img2 = document.createElement("img")
+							let button = document.createElement("button")
+							let bText = document.createTextNode("Add to Portfolio")
+							button.setAttribute("onclick", `appendLS('${ticker}')`)
+							button.appendChild(bText)
+							sleep(10000)
+							img.setAttribute("src", `../assets/images/chartSeries${ticker}.jpg`)
+							img.setAttribute("id",`${ticker}Img`)
+							d = new Date();
+							$(`#${ticker}Img`).attr("src", `../assets/images/chartSeries${ticker}.jpg`+d.getTime());
+							p.appendChild(vt)
+							p.appendChild(br)
+							p.appendChild(vl)
+							p.appendChild(br2)
+							p.appendChild(b)
+							p.appendChild(br3)
+							p.appendChild(img)
+							p.append(button)
+						}
+
+						let input = document.getElementById("field1");
+						input.addEventListener("keyup", function(event) {
+							if (event.keyCode === 13) {
+							 event.preventDefault();
+							 document.getElementById("btn1").click();
+							}
+						});
+
+						</script>
+		<div id = "content">a</div>
 
 </p></b>
 </div>
