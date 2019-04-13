@@ -16,6 +16,9 @@ def pRoot():
 def sRoot():
     return app.send_static_file("stocks.html")
 
+@app.route('/theory/')
+def hellohello():
+    return app.send_static_file("theory.html")
 @app.route('/lookup/')
 def lookup():
     fetched = request.args.get('v')

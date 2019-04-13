@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<!--
+	Theory by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Generic - Theory by TEMPLATED</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/main.css" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+
+					<nav id="nav">
+						<a href="/theory" class="logo">Theory</a>
+						<a href="/">Home</a>
+						<a href="/stocks">Stocks</a>
+						<a href="/portfolio">Portfolio</a>
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+
+		<!-- Three -->
+			<section id="three" class="wrapper">
+				<div class="inner">
+					<header class="align-center">
+						<h2>Theory Behind Our Calculations</h2>
+					</header>
+          <center><p>Objective: To educate investors who are new to the concept of short term trading and provide them with the tools to make effective suggestions.</p></center>
+          <table id = "stockTable" class = "tableVals">
+            <tr id = "headers">
+              <th id = "tickerHeader"><center>Volatility Calculations</center></th>
+              <th id = "priceHeader"><center>How We Determine Buy and Sell Prices</center></th>
+              <th id = "ratingHeader"><center>How We Determine Rating</center></th>
+            </tr>
+            <tr class = "row1">
+              <td id = "t1"><center>
+                For the volatility calculations finds the absolute value of the percent change for the last 10 days
+                and averages the ten values. When calculating overall trend we find the volatility for the last
+                 10 days and them all together<></center></td>
+              <td id = "p1"><center>The buying and selling prices were determined by finding the range of prices where
+                 the stock was the most recent in the last 10 days. First, a list of the lowest price on each day
+                  and the highest price on each day was created, and these lists were sorted efficiently from least
+                   to greatest. Then, an array was created with the values from both lists. The code then traversed
+                    through this array, and a counter tracked the number of days in which each price occured. While
+                    keeping track of the maximum value of the counter and the minimum and maximum values such that the
+                    counter was at its maximum value, the required range was determined. The lower value is the buying
+                    price, and the higher value is the selling price.</center></td>
+              <td id = "r1"><center>The rating is determined by factoring in volume, sentiment analysis of conversations and articles.
+                We also use volatility, the overall trend, and the standard deviation from volatility</center></td>
+            </tr>
+
+
+          </table>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
