@@ -51,7 +51,7 @@ def price():
 @app.route('/suggest/')
 def qSuggest():
     rc = request.args.get('v')
-    return str(stock.run.quickSuggest(rc))
+    return str(stock.run.quickSuggest( rc))
 
 @app.route('/suggest_full/')
 def fSuggest():
@@ -73,7 +73,7 @@ def gH():
 def gL():
     rc = request.args.get('v')
     return stock.run.getLow(rc)
-    
+
 @app.route('/assets/<path:path>')
 def send_assets(path):
     return send_from_directory('assets', path)
