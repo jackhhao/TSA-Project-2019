@@ -32,7 +32,7 @@
 						<h2>Random Stocks</h2>
 						<p>After sorting through random stocks, we display the ones we think are the best!</p>
 					</header>
-					<p>Go to the table and click on a box in order to see why we rated it well.</p>
+					<p><center>Input how many stocks you would like to go through and press the submit button. The computer will randomly generate stocks and recommend you the best ones.</center></p>
 					<div class="flex flex-2" id = "flex-div"></div>
 
 						<div id = "modals"></div>
@@ -165,7 +165,7 @@
 						function setR(rowNum, ticker){
 							$.get("/suggest", {v: ticker}, function(result){
 								$ ("#" + `r${rowNum}`).text(parseFloat(result).toFixed(4).toString());
-								if(parseFloat(result) >= 10	){
+								if(parseFloat(result) >= 50	){
 									let modal = document.createElement("div")
 									let overlay = document.createElement("div")
 									let modal_content = document.createElement("div")
@@ -246,25 +246,6 @@
 
 						</script>
 
-
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<div class="flex">
-						<div class="copyright">
-							&copy; Untitled. Design: <a href="htt
-							ps://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
-						</div>
-						<ul class="icons">
-							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
-							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
-							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
-						</ul>
-					</div>
-				</div>
-			</footer>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>

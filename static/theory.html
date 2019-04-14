@@ -44,7 +44,7 @@
               <td id = "t1"><center>
                 For the volatility calculations finds the absolute value of the percent change for the last 10 days
                 and averages the ten values. When calculating overall trend we find the volatility for the last
-                 10 days and them all together<></center></td>
+                 10 days and them all together</center></td>
               <td id = "p1"><center>The buying and selling prices were determined by finding the range of prices where
                  the stock was the most recent in the last 10 days. First, a list of the lowest price on each day
                   and the highest price on each day was created, and these lists were sorted efficiently from least
@@ -53,13 +53,14 @@
                     keeping track of the maximum value of the counter and the minimum and maximum values such that the
                     counter was at its maximum value, the required range was determined. The lower value is the buying
                     price, and the higher value is the selling price.</center></td>
-              <td id = "r1"><center>The rating is determined by factoring in volume, sentiment analysis of conversations and articles.
+              <td id = "r1"><center>The rating is determined by factoring in volume, sentiment analysis of conversations, and sentiment analysis of articles. The rating of volume is defined by a logistic curve as changes at the extremes must not be as heavily weighted as those in the middle (See Figure-1 for the curve)
                 We also use volatility, the overall trend, and the standard deviation from volatility</center></td>
             </tr>
 
 
           </table>
-
+					<center><img src = "../assets/images/logistic.jpg"><center>
+					<h3><center>Figure 1 - Logistic Curve for Volume Rating</h3></center>
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
