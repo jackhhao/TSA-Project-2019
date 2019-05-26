@@ -28,7 +28,7 @@
 		<!-- Banner -->
 			<section id="banner">
 				<h1>Welcome to Stock Assistor</h1>
-				<p>A free responsive HTML5 website template by mad lad.</p>
+				<p>An educational tool for novice short-term traders.</p>
 			</section>
 			<p></p>
 		<div class = "container">
@@ -37,7 +37,6 @@
 	<div class = container-fluid>
 		<p></p>
 		<button id = "btn1" onclick="testFunc()">Submit</button>
-		<button id = "btn2" onclick = "fillModal()">Open Modal</button>
 	</div>
 	<div id="modal">
 		<div class="overlay" id="overlay1">
@@ -61,13 +60,14 @@
 
 						let dict = {}
 
-
+						let rating = 0
 
 						let sug = document.getElementById("suggestions")
 
 						function testFunc(){
-							setR(document.getElementById("field1").value)
-							console.log(document.getElementById("field1").value)
+							ticker = document.getElementById("field1").value
+							setR(ticker)
+							console.log(ticker)
 						}
 
 						function sleep(miliseconds) {
@@ -98,8 +98,8 @@
 
 						function setR(ticker){
 							$.get("/suggest", {v: ticker}, function(result){
+								rating = result
 								console.log("hi")
-								if(true){
 									let modal = document.getElementById("modal")
 
 									let overlay = document.getElementById("overlay1")
@@ -117,8 +117,7 @@
 									getVl(ticker)
 									getBeta(ticker)
 
-									let header = document.createTextNode(`Stock: ${ticker}`)
-									h3.appendChild(header)
+
 									p.setAttribute("id", `content${ticker}`)
 									console.log("bruh" + p.innerHTML)
 									modal_content.appendChild(h3)
@@ -128,8 +127,7 @@
 									let modals = document.getElementById("content")
 									modals.appendChild(modal)
 									console.log(modals)
-									$("#suggestions").append(`<p><a href = "#stockModal${ticker}" rel = "modal:open" onclick = `+`'fillModal("${ticker}")'`+`>${ticker}</a></p>`)
-							 }
+									$("#suggestions").append(`<center><h2><a href = "#stockModal${ticker}" rel = "modal:open" onclick = `+`'fillModal("${ticker}")'`+`>Click Here to Display Information about ${ticker}</a></h2></center>`)
 							})
 						}
 
@@ -148,7 +146,8 @@
 
 						function fillModal(ticker){
 							// $(`#content${ticker}`).empty()
-							$.get("/createCS", {v: ticker}, () => {})
+							$.get("/createCandle", {v: ticker}, () => {})
+							$.get("/createForecast", {v: ticker}, () => {})
 							console.log(ticker)
 							let test = document.getElementById(`stockModal${ticker}`)
 							console.log(test)
@@ -160,15 +159,24 @@
 							let br3 = document.createElement("br")
 							let img = document.createElement("img")
 							let img2 = document.createElement("img")
+							let br4 = document.createElement("br")
+							let img3 = document.createElement("img")
+							let p2 = document.createElement("p")
 							let button = document.createElement("button")
 							let bText = document.createTextNode("Add to Portfolio")
 							button.setAttribute("onclick", `appendLS('${ticker}')`)
 							button.appendChild(bText)
 							sleep(10000)
-							img.setAttribute("src", `../assets/images/chartSeries${ticker}.jpg`)
+							img.setAttribute("src", `../assets/images/candleChart${ticker}.jpg`)
 							img.setAttribute("id",`${ticker}Img`)
+							img2.setAttribute("src", `../assets/images/forecast${ticker}.jpg`)
 							d = new Date();
-							$(`#${ticker}Img`).attr("src", `../assets/images/chartSeries${ticker}.jpg`+d.getTime());
+							$(`#${ticker}Img`).attr("src", `../assets/images/candleChart${ticker}.jpg`+d.getTime());
+							let rt = document.createTextNode(`Rating: ${rating}`)
+							let br1 = document.createElement("br")
+							let br5 = document.createElement("br")
+							test.appendChild(rt)
+							test.appendChild(br1)
 							test.appendChild(vt)
 							test.appendChild(br)
 							test.appendChild(vl)
@@ -176,6 +184,9 @@
 							test.appendChild(b)
 							test.appendChild(br3)
 							test.appendChild(img)
+							test.appendChild(br4)
+							test.appendChild(img2)
+							test.appendChild(br5)
 							test.append(button)
 						}
 
@@ -188,61 +199,9 @@
 						});
 
 						</script>
-		<div id = "content">a</div>
+		<div id = "content"></div>
 
-</p></b>
-</div>
-		<!-- One -->
-			<section id="one" class="wrapper">
-				<div class="inner">
-					<div class="flex flex-3">
-						<article>
-							<header>
-								<h3>Magna tempus sed amet<br /> aliquam veroeros</h3>
-							</header>
-							<p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu.</p>
-							<footer>
-								<a href="#" class="button special">More</a>
-							</footer>
-						</article>
-						<article>
-							<header>
-								<h3>Interdum lorem pulvinar<br /> adipiscing vitae</h3>
-							</header>
-							<p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu.</p>
-							<footer>
-								<a href="#" class="button special">More</a>
-							</footer>
-						</article>
-						<article>
-							<header>
-								<h3>Libero purus magna sapien<br /> sed ullamcorper</h3>
-							</header>
-							<p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu.</p>
-							<footer>
-								<a href="#" class="button special">More</a>
-							</footer>
-						</article>
-					</div>
-				</div>
-			</section>
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<div class="flex">
-						<div class="copyright">
-							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
-						</div>
-						<ul class="icons">
-							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
-							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
-							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
-						</ul>
-					</div>
-				</div>
-			</footer>
+
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>

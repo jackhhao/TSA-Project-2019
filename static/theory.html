@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Stock Suggester</title>
+		<title>Generic - Theory by TEMPLATED</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="../assets/main.css" />
@@ -16,9 +16,9 @@
 		<!-- Header -->
 			<header id="header">
 				<div class="inner">
-						<a href="/theory" class="logo">Theory</a>
-					<nav id="nav">
 
+					<nav id="nav">
+						<a href="/theory" class="logo">Theory</a>
 						<a href="/">Home</a>
 						<a href="/stocks">Stocks</a>
 						<a href="/portfolio">Portfolio</a>
@@ -44,7 +44,7 @@
               <td id = "t1"><center>
                 For the volatility calculations finds the absolute value of the percent change for the last 10 days
                 and averages the ten values. When calculating overall trend we find the volatility for the last
-                 10 days and them all together<></center></td>
+                 10 days and them all together</center></td>
               <td id = "p1"><center>The buying and selling prices were determined by finding the range of prices where
                  the stock was the most recent in the last 10 days. First, a list of the lowest price on each day
                   and the highest price on each day was created, and these lists were sorted efficiently from least
@@ -53,25 +53,14 @@
                     keeping track of the maximum value of the counter and the minimum and maximum values such that the
                     counter was at its maximum value, the required range was determined. The lower value is the buying
                     price, and the higher value is the selling price.</center></td>
-              <td id = "r1"><center>The rating is determined by factoring in volume, sentiment analysis of conversations and articles.
-                We also use volatility, the overall trend, and the standard deviation from volatility. We rated volume using a logistic curve so lower extreme values would not affect rating while the upper ratings would cap out at a certain point. The equation we used for our S curve was <br>100/(1 + 10.77e^{-1.2x}}</center></td>
+              <td id = "r1"><center>The rating is determined by factoring in volume, sentiment analysis of conversations, and sentiment analysis of articles. The rating of volume is defined by a logistic curve as changes at the extremes must not be as heavily weighted as those in the middle (See Figure-1 for the curve)
+                We also use volatility, the overall trend, and the standard deviation from volatility</center></td>
             </tr>
-            <table id = "stockTable" class = "tableVals">
-              <tr id = "headers">
-                <th id = "tickerHeader"><center>Beta, Volume, Live Price</center></th>
-                <th id = "priceHeader"><center>How graphs are analyzed</center></th>
-                <th id = "ratingHeader"><center>Is the software tested at all</center></th>
-              </tr>
-              <tr class = "row1">
-                <td id = "t1"><center>Beta, Volume, and Live Price were all able to be determined using the module yahoo_fin which returned financial infromation of a given ticker</center></td>
-                <td id = "p1"><center> The graphs are generated using the "quantmod" package found in R. Initially, the program uses the getSymbols() function to extract data from
-                  an online source, in this case Yahoo Finance. The graphs are used to forecast the stock price based off of historical patterns.</center></td>
-                <td id = "r1"><center>The code has been tested in the form of a portfolio that was created using reccomended stocks which we bought and sold at prices reccomended by the software </center></td>
-              </tr>
 
 
           </table>
-
+					<center><img src = "../assets/images/logistic.jpg"><center>
+					<h3><center>Figure 1 - Logistic Curve for Volume Rating</h3></center>
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>

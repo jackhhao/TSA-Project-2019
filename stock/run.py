@@ -82,23 +82,31 @@ def quickSuggest(rc):
     vl = analyze_stocks.getVolume(rc)
     if (vl is None):
         return 0
-    #print("The stock (" + rc + ") is operating at a volume of " + str(vl) + " shares on the last open trading day.")
     vlRating = 100/(1 + 10.77*(exp(-1.2*vl/1000000)))
-    #print("The StockBot gives the stock a volume rating of " + str(vlRating) + ".")
+    print(vlRating)
     vt = analyze_stocks.getVolatility(rc, 10)
+    print(vt)
     ac = analyze_stocks.getActualVolatility(rc, 10)
+    print(ac)
     stdev = analyze_stocks.volatilityStDev(rc, 10)
+    print(stdev)
 
     rating = 10 + vt*60 - abs(ac*35) + vlRating/1.5 - stdev*15
     return rating
 
 def createImages(ticker):
-    os.system(("sudo Rscript ./assets/R/plot.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
+    os.system(("sudo Rscript ./assets/R/plot.R " + (date.tosday()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
     os.system(("sudo Rscript ./assets/R/candleChart.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
     os.system(("sudo Rscript ./assets/R/forecast.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
 
 def createChartSeries(ticker):
     os.system(("sudo Rscript ./assets/R/chartSeries.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
+
+def createCandleChart(ticker):
+    os.system(("sudo Rscript ./assets/R/candleChart.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " candleChart"+ticker))
+
+def createForceastChart(ticker):
+    os.system(("sudo Rscript ./assets/R/forecast.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " forecast"+ticker))
 
 def randomStock():
     rc = choice(tl)

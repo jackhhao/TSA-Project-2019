@@ -95,7 +95,7 @@
 						}
 
 						function setT(rowNum){
-							let result = localStorage.getItem(`stock${rowNum-1}`)
+							let result = localStorage.getItem(`stock${rowNum}`)
 							console.log(result)
 							document.getElementById(`t${rowNum}`).innerHTML = result
 								setP(rowNum, result)
@@ -112,13 +112,13 @@
 
 						function setH(rowNum, ticker){
 							$.get("/getHigh", {v: ticker}, function(result){
-								$ ("#" + `rb${rowNum}`).text(parseFloat(result).toFixed(2).toString());
+								$ ("#" + `rs${rowNum}`).text("$" + parseFloat(result).toFixed(2).toString());
 							})
 						}
 
 						function setL(rowNum, ticker){
 							$.get("/getLow", {v: ticker}, function(result){
-								$ ("#" + `rs${rowNum}`).text(parseFloat(result).toFixed(2).toString());
+								$ ("#" + `rb${rowNum}`).text("$" + parseFloat(result).toFixed(2).toString());
 							})
 						}
 
@@ -163,7 +163,6 @@
 									}
 									$(`#row${i+1}`).append(`<td id = "${rowID}"><center></center></td>`)
 								}
-								console.log(document.getElementById("stockTable").innerHTML);
 }
 								let r=1;
 								let table = document.getElementById("stockTable");
@@ -180,23 +179,6 @@
 					</script>
 
 
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<div class="flex">
-						<div class="copyright">
-							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
-						</div>
-						<ul class="icons">
-							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
-							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
-							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
-						</ul>
-					</div>
-				</div>
-			</footer>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
