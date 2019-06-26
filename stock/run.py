@@ -95,18 +95,18 @@ def quickSuggest(rc):
     return rating
 
 def createImages(ticker):
-    os.system(("sudo Rscript ./assets/R/plot.R " + (date.tosday()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
-    os.system(("sudo Rscript ./assets/R/candleChart.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
-    os.system(("sudo Rscript ./assets/R/forecast.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
+    os.system(("Rscript ./assets/R/plot.R " + (date.tosday()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
+    os.system(("Rscript ./assets/R/candleChart.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
+    os.system(("Rscript ./assets/R/forecast.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
 
 def createChartSeries(ticker):
-    os.system(("sudo Rscript ./assets/R/chartSeries.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
+    os.system(("Rscript ./assets/R/chartSeries.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
 
 def createCandleChart(ticker):
-    os.system(("sudo Rscript ./assets/R/candleChart.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " candleChart"+ticker))
+    os.system(("Rscript ./assets/R/candleChart.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " candleChart"+ticker))
 
 def createForceastChart(ticker):
-    os.system(("sudo Rscript ./assets/R/forecast.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " forecast"+ticker))
+    os.system(("Rscript ./assets/R/forecast.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " forecast"+ticker))
 
 def randomStock():
     rc = choice(tl)
