@@ -10,7 +10,7 @@ code.files <- dir(code.directory, pattern = "[.r]")
 for (file in code.files){
   source(file = file.path(code.dir,file))
 }
-#install.packages("quantmod")
+install.packages("quantmod")
 require("quantmod")
 library("quantmod", character.only = TRUE)
 start_date <- args[1]

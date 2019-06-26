@@ -9,5 +9,4 @@ yahoo_fin==0.8.2
 numpy==1.16.2
 beautifulsoup4==4.7.1
 protobuf==3.7.1
-newspaper==0.1.0.7
 google-cloud-language

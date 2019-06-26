@@ -7,8 +7,8 @@ code.files <- dir(code.directory, pattern = "[.r]")
 for (file in code.files){
   source(file = file.path(code.dir,file))
 }
-#install.packages(c("quantmod", "gridExtra"))
-#install.packages("gridExtra")
+install.packages(c("quantmod", "gridExtra"))
+install.packages("gridExtra")
 require("quantmod")
 require("gridExtra")
 library("quantmod", character.only= TRUE)
