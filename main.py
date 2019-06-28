@@ -1,6 +1,8 @@
 import os
 import stock.run
+from lru import lru_cache_function
 from flask import Flask, request, send_from_directory
+from functools import *
 
 app = Flask(__name__)
 
@@ -17,8 +19,10 @@ def sRoot():
     return app.send_static_file("stocks.html")
 
 @app.route('/theory/')
-def hellohello():
+def tRoot():
     return app.send_static_file("theory.html")
+
+@lru_cache(maxsize=None)
 @app.route('/lookup/')
 def lookup():
     fetched = request.args.get('v')
@@ -28,31 +32,37 @@ def lookup():
 def random():
     return stock.run.randomStock()
 
+@lru_cache(maxsize=None)
 @app.route('/volume/')
 def volume():
     rc = request.args.get('v')
     return str(stock.run.returnVolume(rc))
 
+@lru_cache(maxsize=None)
 @app.route('/volatility/')
 def volatility():
     fetched = request.args.get('v')
     return str(stock.run.returnVolatility(fetched))
 
+@lru_cache(maxsize=None)
 @app.route('/beta/')
 def beta():
     fetched = request.args.get('v')
     return str(stock.run.returnBeta(fetched))
 
+@lru_cache(maxsize=None)
 @app.route('/price/')
 def price():
     rc = request.args.get('v')
     return str(stock.run.getPrice(rc))
 
+@lru_cache(maxsize=None)
 @app.route('/suggest/')
 def qSuggest():
     rc = request.args.get('v')
-    return str(stock.run.quickSuggest( rc))
+    return str(stock.run.quickSuggest(rc))
 
+@lru_cache(maxsize=None)
 @app.route('/suggest_full/')
 def fSuggest():
     rc = request.args.get('v')
@@ -76,11 +86,13 @@ def cf():
     stock.run.createForceastChart(rc)
     return "hi"
 
+@lru_cache(maxsize=None)
 @app.route('/getHigh')
 def gH():
     rc = request.args.get('v')
     return str(stock.run.getHigh(rc))
 
+@lru_cache(maxsize=None)
 @app.route('/getLow')
 def gL():
     rc = request.args.get('v')

@@ -15,32 +15,17 @@ from datetime import date, timedelta
 from newspaper import Article
 from yahoo_fin.stock_info import *
 from os import environ
+from functools import *
 
 lang_code = "en"
 environ["GOOGLE_APPLICATION_CREDENTIALS"] = "assets/TSA-2019-734637019630.json"
 client = language.LanguageServiceClient()
 
+@lru_cache(maxsize=None)
 def getVolume(t):
-    '''
-    try:
-        vol = get_quote_table(t)["Avg. Volume"]
-        volRisk = 0.5
-        if vol>17500000:
-            if vol > 25000000:
-                volRisk = 1
-            else:
-                volRisk = 0.75
-        elif vol<5000000:
-            if vol<1000000:
-                volRisk = 0.1
-            else:
-                volRisk = 0.25
-        return volRisk
-    except:
-        return 0
-    '''
     return get_quote_table(t)["Volume"]
 
+@lru_cache(maxsize=None)
 def getHL(t, td, opt):
     day = (date.today() - timedelta(td)).strftime("%m/%d/%y")
     try:
@@ -54,6 +39,8 @@ def getHL(t, td, opt):
             return low
     except:
         return None
+
+@lru_cache(maxsize=None)
 def sentimentArticles(ticker):
     FYPapers = getFY.urls(ticker)
     count = 0
@@ -79,6 +66,7 @@ def sentimentArticles(ticker):
     except ZeroDivisionError:
         return None, None
 
+@lru_cache(maxsize=None)
 def sentimentConvos(ticker):
     FYConvos = getFY.convos(ticker)
     count = 0
@@ -101,6 +89,7 @@ def sentimentConvos(ticker):
     except ZeroDivisionError:
         return None, None
 
+@lru_cache(maxsize=None)
 def getVolatility(ticker, td):
     day = (date.today() - timedelta(td)).strftime("%m/%d/%y")
     L = [i for i in get_data(ticker = ticker, start_date = day)["close"]]
@@ -114,6 +103,7 @@ def getVolatility(ticker, td):
     avgVolatility = sum(L2)/len(L2)
     return avgVolatility
 
+@lru_cache(maxsize=None)
 def getActualVolatility(str, td):
     day = (date.today() - timedelta(td)).strftime("%m/%d/%y")
     L = []
@@ -126,6 +116,7 @@ def getActualVolatility(str, td):
         count+=1
     return sum(L2)
 
+@lru_cache(maxsize=None)
 def volatilityStDev(ticker, td):
     day = (date.today() - timedelta(td)).strftime("%d/%m/%Y")
     L = []
@@ -138,18 +129,21 @@ def volatilityStDev(ticker, td):
         count+=1
     return np.std(L2)
 
+@lru_cache(maxsize=None)
 def getBeta(t):
     try:
         return get_quote_table(t)["Beta (3Y Monthly)"]
     except:
         return None
 
+@lru_cache(maxsize=None)
 def getCurrentPrice(t):
     try:
         return get_live_price(t)
     except:
         return None
 
+@lru_cache(maxsize=None)
 def searchHL(x, lowPrices, highPrices):
     for i in lowPrices:
         if i == x:
@@ -158,6 +152,7 @@ def searchHL(x, lowPrices, highPrices):
         if i == x:
             return -1
 
+@lru_cache(maxsize=None)
 def getFreq(ticker, td):
     day = (date.today() - timedelta(td)).strftime("%m/%d/%y")
     highPrices = [i for i in get_data(ticker = ticker, start_date=day)["high"]]

@@ -11,6 +11,7 @@ from csv import reader
 from random import choice
 from time import sleep
 from math import exp
+from functools import *
 #from win10toast import ToastNotifier
 
 #toaster = ToastNotifier()
@@ -40,6 +41,8 @@ def returnBeta(rc):
     return analyze_stocks.getBeta(rc)
 
     return analyze_stocks.getVolume(rc)
+
+@lru_cache(maxsize=None)
 def final(rc):
     sellAt = analyze_stocks.getHL(rc, 10, "High")
     buyAt = analyze_stocks.getHL(rc, 10, "Low")
@@ -56,6 +59,7 @@ f= open("assets/companyList.csv")
 r = reader(f, delimiter=",")
 tl = [i[0] for i in r]
 
+@lru_cache(maxsize=None)
 def fullSuggest(rc):
     rating = 0
     vl = analyze_stocks.getVolume(rc)
@@ -77,6 +81,7 @@ def fullSuggest(rc):
     rating = sentiment + vt*60 - abs(ac*35) + vlRating/1.5 - stdev*15
     return rating
 
+@lru_cache(maxsize=None)
 def quickSuggest(rc):
     rating = 0
     vl = analyze_stocks.getVolume(rc)
