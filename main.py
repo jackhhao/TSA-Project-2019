@@ -1,6 +1,6 @@
 import os
 import stock.run
-from lru import lru_cache_function
+# from lru import lru_cache_function
 from flask import Flask, request, send_from_directory
 from functools import *
 

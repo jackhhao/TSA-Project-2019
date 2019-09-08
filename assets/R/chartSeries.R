@@ -1,4 +1,4 @@
-code.directory <- "~/Github/TSA-Project-2019/assests/R/ChartSeries"
+code.directory <- "~/Documents/TSA-Project-2019/assets/R/chartSeries.R"
 options("getSymbols.warning4.0"=FALSE)
 args <- commandArgs(trailingOnly = TRUE)
 file.create("TSA_METHOD_2", to = code.directory)
@@ -7,7 +7,6 @@ code.files <- dir(code.directory, pattern = "[.r]")
 for (file in code.files){
   source(file = file.path(code.dir,file))
 }
-install.packages("quantmod")
 require("quantmod")
 library("quantmod", character.only = TRUE)
 start_date <- args[1]

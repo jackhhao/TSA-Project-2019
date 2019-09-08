@@ -33,13 +33,14 @@ def nu(rc, h, l):
                 break
         else:
             break
+
 def returnVolume(rc):
     return analyze_stocks.getVolume(rc)
 def returnVolatility(rc):
     return analyze_stocks.getVolatility(rc, 10)
 def returnBeta(rc):
     return analyze_stocks.getBeta(rc)
-
+def getVolume(rc):
     return analyze_stocks.getVolume(rc)
 
 @lru_cache(maxsize=None)
@@ -100,14 +101,13 @@ def quickSuggest(rc):
     return rating
 
 def createImages(ticker):
-    os.system(("Rscript ./assets/R/plot.R " + (date.tosday()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
-    os.system(("Rscript ./assets/R/candleChart.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
-    os.system(("Rscript ./assets/R/forecast.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
+    os.system(("Rscript ./assets/R/plot.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
 
 def createChartSeries(ticker):
     os.system(("Rscript ./assets/R/chartSeries.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " chartSeries"+ticker))
 
 def createCandleChart(ticker):
+    print(("Rscript ./assets/R/candleChart.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " candleChart"+ticker))
     os.system(("Rscript ./assets/R/candleChart.R " + (date.today()-timedelta(days = 30)).strftime("%Y-%m-%d") + " " + date.today().strftime("%Y-%m-%d") + " " + ticker + " candleChart"+ticker))
 
 def createForceastChart(ticker):
